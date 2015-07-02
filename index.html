@@ -4,8 +4,12 @@
   <meta charset="UTF-8">
   <title>Estimatio</title>
   <script type="text/javascript" src="angular.min.js"></script>
+  <script type="text/javascript" src="angular-grid.min.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+  <link rel="stylesheet" href="angular-grid.min.css">
+  <link rel="stylesheet" href="theme-fresh.css">
 </head>
-<body>
-  Hola
+<body ng-app="estimatio" ng-controller="estimatioCtrl">
+  <div ag-grid="gridOptions" class="ag-fresh" style="height 100%"></div>
 </body>
 </html>

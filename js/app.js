@@ -2,24 +2,29 @@
 'use strict';
 var module = angular.module('estimation', ['angularGrid']);
 
+module.factory('estimationFactory', function() {
+  var estimation = {};
+
+  var save = function (newEstimation) {
+    estimation = newEstimation;
+  };
+
+  var get = function () {
+    return estimation;
+  };
+
+  return {
+    get: get,
+    save: save
+  };
+});
+
 module.controller('estimationCtrl', function($scope, estimationFactory) {
   $scope.estimation = {};
 
   $scope.save = function(estimation){
-     estimationFactory.save(estimation);
-  };
-});
-
-module.factory('estimationFactory', function() {
-  var orgEstimation = {};
-
-  var save = function (estimation) {
-    orgEstimation = estimation;
-  };
-
-  return {
-    estimation: orgEstimation,
-    save: save,
+    estimationFactory.save(estimation);
+    $scope.estimation = {};
   };
 });
 
@@ -35,8 +40,12 @@ module.factory('userStoriesFactory', function() {
     userStories.push(userStory);
   };
 
+  var get = function () {
+    return userStories;
+  };
+
   return {
-    userStories: userStories,
+    get: get,
     add: add
   };
 });
@@ -69,8 +78,12 @@ module.factory('tasksFactory', function(modifiers) {
     tasks[tasks.indexOf(task)] = newValue;
   };
 
+  var get = function () {
+    return tasks;
+  };
+
   return {
-    tasks: tasks,
+    get: get,
     add: add,
     update: update
   };
@@ -88,7 +101,7 @@ module.controller('userStoriesCtrl', function($scope, userStoriesFactory) {
 
   $scope.gridOptions = {
     columnDefs: columnDefs,
-    rowData: userStoriesFactory.userStories,
+    rowData: userStoriesFactory.get(),
     enableColResize: true,
     ready: function(api) {
       api.sizeColumnsToFit();
@@ -116,7 +129,7 @@ module.service('modifiers', function() {
 });
 
 module.controller('tasksCtrl', function($scope, userStoriesFactory, tasksFactory) {
-  $scope.userStories = userStoriesFactory.userStories;
+  $scope.userStories = userStoriesFactory.get();
 
   $scope.task = {};
 
@@ -137,7 +150,7 @@ module.controller('tasksCtrl', function($scope, userStoriesFactory, tasksFactory
 
   $scope.gridOptions = {
     columnDefs: columnDefs,
-    rowData: tasksFactory.tasks,
+    rowData: tasksFactory.get(),
     enableColResize: true,
     ready: function(api) {
       api.sizeColumnsToFit();

@@ -1,5 +1,4 @@
 /* global angular */
-/* global console */
 'use strict';
 var module = angular.module('estimation', ['angularGrid']);
 
@@ -7,7 +6,6 @@ module.controller('estimationCtrl', function($scope) {
   $scope.estimation = {};
 
   $scope.save = function(estimation){
-    console.log('estimation', estimation);
   };
 });
 
@@ -40,6 +38,9 @@ module.factory('tasksFactory', function(modifiers) {
     task.usName = task.userStory.name;
     task.usRelease = task.userStory.release;
     task.unitTestingFront = Math.ceil((modifiers.unitTestingFront * task.frontend) / 100);
+    task.unitTestingBack = Math.ceil((modifiers.unitTestingBack * task.backend) / 100);
+    task.issueFixingBack = Math.ceil((modifiers.issueFixingBack * task.backend) / 100);
+    task.issueFixingFront = Math.ceil((modifiers.issueFixingFront * task.backend) / 100); 
     tasks.push(task);
     __taskId++;
   };
@@ -47,6 +48,9 @@ module.factory('tasksFactory', function(modifiers) {
   var update = function (newValue) {
     var task = tasks.filter(function(x){return x.id === newValue.id;})[0];
     newValue.unitTestingFront = Math.ceil((modifiers.unitTestingFront * newValue.frontend) / 100);
+    newValue.unitTestingBack = Math.ceil((modifiers.unitTestingBack * newValue.backend) / 100);
+    newValue.issueFixingBack = Math.ceil((modifiers.issueFixingBack * newValue.frontend) / 100);
+    newValue.issueFixingFront = Math.ceil((modifiers.issueFixingFront * newValue.backend) / 100); 
     tasks[tasks.indexOf(task)] = newValue;
   };
 
@@ -107,10 +111,13 @@ module.controller('tasksCtrl', function($scope, userStoriesFactory, tasksFactory
     {headerName: 'Release', field: 'usRelease'},
     {headerName: 'Assumptions', field: 'assumptions', editable: true},
     {headerName: 'Frontend (SSr)', field: 'frontend', editable: true, newValueHandler: updateGrid},
-    {headerName: 'Backend (SSr)', field: 'backend', editable: true},
+    {headerName: 'Backend (SSr)', field: 'backend', editable: true, newValueHandler: updateGrid},
     {headerName: 'Design and Architecture', field: 'architecture', editable: true},
     {headerName: 'Visual Designer', field: 'visual', editable: true},
-    {headerName: 'Unit Testing Front (SSr)', field: 'unitTestingFront', editable: true}
+    {headerName: 'Unit Testing Front (SSr)', field: 'unitTestingFront', editable: true},
+    {headerName: 'Unit Testing Back (SSr)', field: 'unitTestingBack', editable: true},
+    {headerName: 'Issue Fixing Front (SSr)', field: 'issueFixingFront', editable: true},
+    {headerName: 'Issue Fixing Back (SSr)', field: 'issueFixingBack', editable: true}
   ];
 
   $scope.gridOptions = {

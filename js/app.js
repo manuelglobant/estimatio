@@ -2,10 +2,24 @@
 'use strict';
 var module = angular.module('estimation', ['angularGrid']);
 
-module.controller('estimationCtrl', function($scope) {
+module.controller('estimationCtrl', function($scope, estimationFactory) {
   $scope.estimation = {};
 
   $scope.save = function(estimation){
+     estimationFactory.save(estimation);
+  };
+});
+
+module.factory('estimationFactory', function() {
+  var orgEstimation = {};
+
+  var save = function (estimation) {
+    orgEstimation = estimation;
+  };
+
+  return {
+    estimation: orgEstimation,
+    save: save,
   };
 });
 
@@ -41,7 +55,7 @@ module.factory('tasksFactory', function(modifiers) {
     task.unitTestingBack = Math.ceil((modifiers.unitTestingBack * task.backend) / 100);
     task.issueFixingFront = Math.ceil((modifiers.issueFixingFront * task.frontend) / 100); 
     task.issueFixingBack = Math.ceil((modifiers.issueFixingBack * task.backend) / 100);
-    
+
     tasks.push(task);
     __taskId++;
   };

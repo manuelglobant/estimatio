@@ -5,11 +5,40 @@
   <title>Estimatio</title>
   <link rel="stylesheet" href="lib/angular-grid.min.css">
   <link rel="stylesheet" href="lib/theme-fresh.css">
+  
+  <!-- angular -->
   <script type="text/javascript" src="lib/angular.min.js"></script>
+  <!-- angular grid -->
   <script type="text/javascript" src="lib/angular-grid.min.js"></script>
+
+  <!-- angular app -->
   <script type="text/javascript" src="js/app.js"></script>
 </head>
-<body ng-app="estimatio" ng-controller="estimatioCtrl">
-  <div ag-grid="gridOptions" class="ag-fresh" style="height 100%"></div>
+<body ng-app="estimation" layout="column">
+  <div ng-controller="estimationCtrl">
+    <form novalidate>
+      <input placeholder="Client:" type="text" ng-model="estimation.client" /><br />
+      <input placeholder="Project:" type="text" ng-model="estimation.project" /><br />
+      <input placeholder="Studio:" type="text" ng-model="estimation.studio" /><br />
+      <input placeholder="Presales Responsible:" type="text" ng-model="estimation.presalesResponsible" /><br />
+      <input placeholder="Technical Estimators:" type="text" ng-model="estimation.technicalEstimators" /><br />
+      <input type="submit" ng-click="update(estimation)" value="Save" />
+    </form>
+    <pre>output = {{estimation | json}}</pre>  
+  </div>
+  <hr>
+  <div ng-controller="userStoriesCtrl">
+    <form novalidate>
+      <input placeholder="Owner:" type="text" ng-model="userStory.owner" /><br />
+      <input placeholder="Number:" type="text" ng-model="userStory.number" /><br />
+      <input placeholder="Name:" type="text" ng-model="userStory.name" /><br />
+      <input placeholder="Release:" type="text" ng-model="userStory.release" /><br />
+      <input placeholder="Details:" type="text" ng-model="userStory.details" /><br />
+      <input placeholder="Type:" type="text" ng-model="userStory.type" /><br />
+      <input type="submit" ng-click="save(userStory)" value="Save" />
+      <pre>output = {{userStory | json}}</pre>  
+    </form>
+    <div ag-grid="gridOptions" class="ag-fresh" style="height 100%"></div>
+  </div>
 </body>
 </html>

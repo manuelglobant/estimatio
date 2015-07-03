@@ -1,9 +1,14 @@
 /* global angular */
+/* global console */
 'use strict';
 var module = angular.module('estimation', ['angularGrid']);
 
 module.controller('estimationCtrl', function($scope) {
   $scope.estimation = {};
+
+  $scope.save = function(estimation){
+    console.log('estimation', estimation);
+  };
 });
 
 module.factory('userStoriesFactory', function() {

@@ -1,0 +1,4 @@
+.tasks-grid, .user-stories-grid {
+  height: 200px;
+  min-height: 200px;
+}

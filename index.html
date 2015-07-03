@@ -5,6 +5,7 @@
   <title>Estimatio</title>
   <link rel="stylesheet" href="lib/angular-grid.min.css">
   <link rel="stylesheet" href="lib/theme-fresh.css">
+  <link rel="stylesheet" href="css/style.css">
   
   <!-- angular -->
   <script type="text/javascript" src="lib/angular.min.js"></script>
@@ -14,31 +15,46 @@
   <!-- angular app -->
   <script type="text/javascript" src="js/app.js"></script>
 </head>
-<body ng-app="estimation" layout="column">
+<body ng-app="estimation">
+
   <div ng-controller="estimationCtrl">
+    <h2>Estimation</h2>
     <form novalidate>
-      <input placeholder="Client:" type="text" ng-model="estimation.client" /><br />
-      <input placeholder="Project:" type="text" ng-model="estimation.project" /><br />
-      <input placeholder="Studio:" type="text" ng-model="estimation.studio" /><br />
-      <input placeholder="Presales Responsible:" type="text" ng-model="estimation.presalesResponsible" /><br />
-      <input placeholder="Technical Estimators:" type="text" ng-model="estimation.technicalEstimators" /><br />
-      <input type="submit" ng-click="update(estimation)" value="Save" />
-    </form>
-    <pre>output = {{estimation | json}}</pre>  
+      <input placeholder="Client:" type="text" ng-model="estimation.client" />
+      <input placeholder="Project:" type="text" ng-model="estimation.project" />
+      <input placeholder="Studio:" type="text" ng-model="estimation.studio" />
+      <input placeholder="Presales Responsible:" type="text" ng-model="estimation.presalesResponsible" />
+      <input placeholder="Technical Estimators:" type="text" ng-model="estimation.technicalEstimators" />
+      <input type="submit" ng-click="save(estimation)" value="Save" />
+    </form> 
   </div>
   <hr>
+
   <div ng-controller="userStoriesCtrl">
+    <h2>User Stories</h2>
     <form novalidate>
-      <input placeholder="Owner:" type="text" ng-model="userStory.owner" /><br />
-      <input placeholder="Number:" type="text" ng-model="userStory.number" /><br />
-      <input placeholder="Name:" type="text" ng-model="userStory.name" /><br />
-      <input placeholder="Release:" type="text" ng-model="userStory.release" /><br />
-      <input placeholder="Details:" type="text" ng-model="userStory.details" /><br />
-      <input placeholder="Type:" type="text" ng-model="userStory.type" /><br />
+      <input placeholder="Owner:" type="text" ng-model="userStory.owner" />
+      <input placeholder="Number:" type="text" ng-model="userStory.number" />
+      <input placeholder="Name:" type="text" ng-model="userStory.name" />
+      <input placeholder="Release:" type="text" ng-model="userStory.release" />
+      <input placeholder="Details:" type="text" ng-model="userStory.details" />
+      <input placeholder="Type:" type="text" ng-model="userStory.type" />
       <input type="submit" ng-click="save(userStory)" value="Save" />
-      <pre>output = {{userStory | json}}</pre>  
     </form>
-    <div ag-grid="gridOptions" class="ag-fresh" style="height 100%"></div>
+    <div ag-grid="gridOptions" class="ag-fresh user-stories-grid"></div>
   </div>
+  <hr>
+  
+  <div ng-controller="tasksCtrl">
+    <h2>Tasks</h2>
+    <form novalidate>
+      <select ng-model="task.userStory">
+        <option ng-selected="{{userStory.number == task.userStory.number}}" ng-repeat="userStory in userStories" value="{{userStory}}">{{userStory.number}}</option>
+      </select>
+      <input type="submit" ng-click="save(task)" value="Save" />
+    </form>
+    <div ag-grid="gridOptions" class="ag-fresh tasks-grid"></div>
+  </div>
+  <hr>
 </body>
 </html>

@@ -119,8 +119,9 @@ module.controller('tasksCtrl', function($scope, userStoriesFactory, tasksFactory
 
   function updateGrid (newValue) {
     var updatedTask = newValue.data;
-    var updatedField = newValue.colDef.field;
-    updatedTask[updatedField] = newValue.newValue;
+    updatedTask[newValue.field] = newValue;
+    debugger;
+    
     tasksFactory.update(updatedTask);
     newValue.api.onNewRows();
   }

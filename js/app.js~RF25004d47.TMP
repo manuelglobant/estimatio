@@ -101,7 +101,7 @@ module.controller('tasksCtrl', function($scope, userStoriesFactory, tasksFactory
     {headerName: 'Name', field: 'usName'},
     {headerName: 'Release', field: 'usRelease'},
     {headerName: 'Assumptions', field: 'assumptions', editable: true},
-    {headerName: 'Frontend (SSr)', field: 'frontend', editable: true, newValueHandler: updateGrid},
+    {headerName: 'Frontend (SSr)', field: 'frontend', editable: true, newValueHandler: $scope.update},
     {headerName: 'Backend (SSr)', field: 'backend', editable: true},
     {headerName: 'Design and Architecture', field: 'architecture', editable: true},
     {headerName: 'Visual Designer', field: 'visual', editable: true},
@@ -117,7 +117,7 @@ module.controller('tasksCtrl', function($scope, userStoriesFactory, tasksFactory
     }
   };
 
-  function updateGrid (newValue) {
+  function update (newValue) {
     var updatedTask = newValue.data;
     var updatedField = newValue.colDef.field;
     updatedTask[updatedField] = newValue.newValue;

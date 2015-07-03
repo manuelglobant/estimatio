@@ -24,31 +24,18 @@ module.factory('userStoriesFactory', function() {
   };
 });
 
-module.factory('tasksFactory', function(modifiers) {
-  var tasks = [];
-  var __taskId = 1;
+module.factory('tasksFactory', function() {
+  var tasks = [
+
+  ];
 
   var add = function (task) {
-    task.id = __taskId;
-    task.userStory = JSON.parse(task.userStory);
-    task.usNumber = task.userStory.number;
-    task.usName = task.userStory.name;
-    task.usRelease = task.userStory.release;
-    task.unitTestingFront = Math.ceil((modifiers.unitTestingFront * task.frontend) / 100);
     tasks.push(task);
-    __taskId++;
-  };
-
-  var update = function (newValue) {
-    var task = tasks.filter(function(x){return x.id === newValue.id;})[0];
-    newValue.unitTestingFront = Math.ceil((modifiers.unitTestingFront * newValue.frontend) / 100);
-    tasks[tasks.indexOf(task)] = newValue;
   };
 
   return {
-    tasks: tasks,
-    add: add,
-    update: update
+    task: tasks,
+    add: add
   };
 });
 
@@ -80,54 +67,28 @@ module.controller('userStoriesCtrl', function($scope, userStoriesFactory) {
   };
 });
 
-module.service('modifiers', function() {
-  return {
-    default: 10,
-    unitTestingFront: 35,
-    unitTestingBack: 35,
-    issueFixingFront: 20,
-    issueFixingBack: 20,
-    manuelTesting: 40
-  };
-});
-
-module.controller('tasksCtrl', function($scope, userStoriesFactory, tasksFactory) {
-  $scope.userStories = userStoriesFactory.userStories;
-
-  $scope.task = {};
-
+module.controller('tasksCtrl', function($scope, userStoriesFactory, taksFactory) {
   var columnDefs = [
-    {headerName: '#', field: 'usNumber'},
-    {headerName: 'Name', field: 'usName'},
-    {headerName: 'Release', field: 'usRelease'},
+    {headerName: '#', field: 'number'},
+    {headerName: 'Name', field: 'name'},
+    {headerName: 'Release', field: 'release'},
     {headerName: 'Assumptions', field: 'assumptions', editable: true},
-    {headerName: 'Frontend (SSr)', field: 'frontend', editable: true, newValueHandler: updateGrid},
+    {headerName: 'Frontend (SSr)', field: 'frontend', editable: true},
     {headerName: 'Backend (SSr)', field: 'backend', editable: true},
     {headerName: 'Design and Architecture', field: 'architecture', editable: true},
-    {headerName: 'Visual Designer', field: 'visual', editable: true},
-    {headerName: 'Unit Testing Front (SSr)', field: 'unitTestingFront', editable: true}
+    {headerName: 'Visual Designer', field: 'visual', editable: true}
   ];
 
   $scope.gridOptions = {
     columnDefs: columnDefs,
-    rowData: tasksFactory.tasks,
+    rowData: userStoriesFactory.tasks,
     enableColResize: true,
     ready: function(api) {
       api.sizeColumnsToFit();
     }
   };
 
-  function updateGrid (newValue) {
-    var updatedTask = newValue.data;
-    var updatedField = newValue.colDef.field;
-    updatedTask[updatedField] = newValue.newValue;
-    tasksFactory.update(updatedTask);
-    newValue.api.onNewRows();
-  }
-
-  $scope.save = function(task) {
-    tasksFactory.add(task);
+  $scope.update = function() {
     $scope.gridOptions.api.onNewRows();
-    $scope.task = {};
   };
 });

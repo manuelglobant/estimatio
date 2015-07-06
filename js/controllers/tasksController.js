@@ -11,7 +11,7 @@ module.controller('tasksController', function($scope, userStoriesFactory, tasksF
     {headerName: '#', field: 'usNumber'},
     {headerName: 'Name', field: 'name', editable: true},
     {headerName: 'Release', field: 'usRelease'},
-    {headerName: 'Assumptions', field: 'assumptions', editable: true}
+    {headerName: 'Assumptions', field: 'assumptions', editable: true},
     // {headerName: 'Frontend (SSr)', field: 'frontend', editable: true, newValueHandler: updateGrid},
     // {headerName: 'Backend (SSr)', field: 'backend', editable: true, newValueHandler: updateGrid},
     // {headerName: 'Design and Architecture', field: 'architecture', editable: true},
@@ -20,7 +20,9 @@ module.controller('tasksController', function($scope, userStoriesFactory, tasksF
     // {headerName: 'Unit Testing Back (SSr)', field: 'unitTestingBack'},
     // {headerName: 'Issue Fixing Front (SSr)', field: 'issueFixingFront'},
     // {headerName: 'Issue Fixing Back (SSr)', field: 'issueFixingBack'},
-    // {headerName: 'Manual Testing Front + Back (SSr)', field: 'manualTestingAll'}
+    // {headerName: 'Manual Testing Front + Back (SSr)', field: 'manualTestingAll'},
+    // {headerName: 'Frontend (SSr)', field: 'totalFront'},
+    // {headerName: 'Backend (SSr)', field: 'totalBack'}
   ];
 
   $scope.gridOptions = {

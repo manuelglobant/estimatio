@@ -31,55 +31,5 @@
   <a ui-sref="profiles">Profiles</a>
   <a ui-sref="tasks">Tasks</a>
   <div ui-view></div>
-
-  <!-- <div ng-controller="estimationController">
-    <h2>Estimation</h2>
-    <form novalidate>
-      <input placeholder="Client:" type="text" ng-model="estimation.client" />
-      <input placeholder="Project:" type="text" ng-model="estimation.project" />
-      <input placeholder="Studio:" type="text" ng-model="estimation.studio" />
-      <input placeholder="Presales Responsible:" type="text" ng-model="estimation.presalesResponsible" />
-      <input placeholder="Technical Estimators:" type="text" ng-model="estimation.technicalEstimators" />
-      <input type="submit" ng-click="save(estimation)" value="Save" />
-    </form> 
-  </div>
-  <hr> -->
-
-  <!-- <div ng-controller="userStoriesController">
-    <h2>User Stories</h2>
-    <form novalidate>
-      <input placeholder="Owner:" type="text" ng-model="userStory.owner" />
-      <input placeholder="Number:" type="text" ng-model="userStory.number" />
-      <input placeholder="Name:" type="text" ng-model="userStory.name" />
-      <input placeholder="Release:" type="text" ng-model="userStory.release" />
-      <input placeholder="Details:" type="text" ng-model="userStory.details" />
-      <input placeholder="Type:" type="text" ng-model="userStory.type" />
-      <input type="submit" ng-click="save(userStory)" value="Save" />
-    </form>
-    <div ag-grid="gridOptions" class="ag-fresh user-stories-grid"></div>
-  </div>
-  <hr> -->
-
-  <!-- <div ng-controller="profilesController">
-    <h2>Profiles</h2>
-    <form novalidate>
-      <input placeholder="Profile name" ng-model="profile" type="text">
-      <input type="submit" ng-click="add(profile)" value="Add" />
-    </form>
-    <div ag-grid="gridOptions" class="ag-fresh profiles-grid"></div>
-  </div>
-  <hr> -->
-  
-  <!-- <div ng-controller="tasksController">
-    <h2>Tasks</h2>
-    <form novalidate>
-      <select ng-model="task.userStory">
-        <option ng-selected="{{userStory.number == task.userStory.number}}" ng-repeat="userStory in userStories" value="{{userStory}}">{{userStory.number}}</option>
-      </select>
-      <input type="submit" ng-click="save(task)" value="Save" />
-    </form>
-    <div ag-grid="gridOptions" class="ag-fresh tasks-grid"></div>
-  </div>
-  <hr> -->
 </body>
 </html>

@@ -54,7 +54,7 @@ module.factory('profilesFactory', function() {
     }
   ];
 
-  var selected = [];
+  var selectedProfiles = [];
 
   var add = function (profileName) {
     profiles.push(
@@ -69,8 +69,12 @@ module.factory('profilesFactory', function() {
     );
   };
 
+  var selected = function () {
+    return selectedProfiles;
+  };
+
   var select = function (profile) {
-    selected.push(profiles[profiles.indexOf(profile)]);
+    selectedProfiles.push(profiles[profiles.indexOf(profile)]);
   };
 
   var get = function () {

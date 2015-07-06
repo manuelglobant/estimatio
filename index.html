@@ -14,6 +14,7 @@
   <script type="text/javascript" src="js/factories/userStoriesFactory.js"></script>
   <script type="text/javascript" src="js/factories/estimationFactory.js"></script>
   <script type="text/javascript" src="js/factories/tasksFactory.js"></script>
+  <script type="text/javascript" src="js/controllers/estimationController.js"></script>
   <script type="text/javascript" src="js/controllers/tasksController.js"></script>
   <script type="text/javascript" src="js/controllers/userStoriesController.js"></script>
 
@@ -22,7 +23,7 @@
 </head>
 <body ng-app="estimation">
 
-  <div ng-controller="estimationCtrl">
+  <div ng-controller="estimationController">
     <h2>Estimation</h2>
     <form novalidate>
       <input placeholder="Client:" type="text" ng-model="estimation.client" />

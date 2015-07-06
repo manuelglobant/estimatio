@@ -5,17 +5,9 @@ var module = angular.module('estimation', [
   'userStoriesController',
   'tasksFactory', 
   'tasksController',
-  'estimationFactory'
+  'estimationFactory',
+  'estimationController'
 ]);
-
-module.controller('estimationCtrl', function($scope, estimationFactory) {
-  $scope.estimation = {};
-
-  $scope.save = function(estimation){
-    estimationFactory.save(estimation);
-    $scope.estimation = {};
-  };
-});
 
 module.service('modifiers', function() {
   return {

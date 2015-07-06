@@ -16,6 +16,6 @@ module.service('modifiers', function() {
     unitTestingBack: 35,
     issueFixingFront: 20,
     issueFixingBack: 20,
-    manuelTesting: 40
+    manualTesting: 40
   };
 });

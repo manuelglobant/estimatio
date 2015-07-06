@@ -1,13 +1,25 @@
 'use strict';
 var module = angular.module('estimation', [
+  'ui.router',
   'angularGrid', 
   'userStoriesFactory',
   'userStoriesController',
   'tasksFactory', 
   'tasksController',
   'estimationFactory',
-  'estimationController'
+  'estimationController',
+  'profilesController',
+  'profilesFactory'
 ]);
+
+module.config(function($stateProvider, $urlRouterProvider) {
+  $urlRouterProvider.otherwise('/estimation');
+  $stateProvider
+    .state('estimation', {
+      url: '/estimation',
+      templateUrl: 'partials/estimation.html'
+    });
+});
 
 module.service('modifiers', function() {
   return {

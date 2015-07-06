@@ -16,10 +16,11 @@ module.controller('tasksController', function($scope, userStoriesFactory, tasksF
     {headerName: 'Backend (SSr)', field: 'backend', editable: true, newValueHandler: updateGrid},
     {headerName: 'Design and Architecture', field: 'architecture', editable: true},
     {headerName: 'Visual Designer', field: 'visual', editable: true},
-    {headerName: 'Unit Testing Front (SSr)', field: 'unitTestingFront', editable: true},
-    {headerName: 'Unit Testing Back (SSr)', field: 'unitTestingBack', editable: true},
-    {headerName: 'Issue Fixing Front (SSr)', field: 'issueFixingFront', editable: true},
-    {headerName: 'Issue Fixing Back (SSr)', field: 'issueFixingBack', editable: true}
+    {headerName: 'Unit Testing Front (SSr)', field: 'unitTestingFront'},
+    {headerName: 'Unit Testing Back (SSr)', field: 'unitTestingBack'},
+    {headerName: 'Issue Fixing Front (SSr)', field: 'issueFixingFront'},
+    {headerName: 'Issue Fixing Back (SSr)', field: 'issueFixingBack'},
+    {headerName: 'Manual Testing Front + Back (SSr)', field: 'manualTestingAll'}
   ];
 
   $scope.gridOptions = {

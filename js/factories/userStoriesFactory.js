@@ -1,4 +1,5 @@
 'use strict';
+
 var module = angular.module('userStoriesFactory', []);
 
 module.factory('userStoriesFactory', function() {

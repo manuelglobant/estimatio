@@ -13,6 +13,7 @@
   <script type="text/javascript" src="lib/angular-grid.min.js"></script>
   <script type="text/javascript" src="js/factories/userStoriesFactory.js"></script>
   <script type="text/javascript" src="js/factories/tasksFactory.js"></script>
+  <script type="text/javascript" src="js/controllers/tasksController.js"></script>
 
   <!-- angular app -->
   <script type="text/javascript" src="js/app.js"></script>
@@ -47,7 +48,7 @@
   </div>
   <hr>
   
-  <div ng-controller="tasksCtrl">
+  <div ng-controller="tasksController">
     <h2>Tasks</h2>
     <form novalidate>
       <select ng-model="task.userStory">

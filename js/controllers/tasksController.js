@@ -4,8 +4,10 @@ var module = angular.module('tasksController', []);
 
 module.controller('tasksController', function($scope, userStoriesFactory, tasksFactory, profilesFactory) {
   $scope.userStories = userStoriesFactory.get();
+  $scope.profiles = profilesFactory.available();
 
   $scope.task = {};
+  $scope.profile = {};
 
   var columnDefs = [
     {headerName: '#', field: 'usNumber'},
@@ -42,7 +44,13 @@ module.controller('tasksController', function($scope, userStoriesFactory, tasksF
     newValue.api.onNewRows();
   }
 
-  $scope.save = function(task) {
+  $scope.saveProfile = function(profile) {
+    profile = JSON.parse(profile);
+    profilesFactory.select(profile);
+    $scope.profiles = profilesFactory.available();
+  };
+
+  $scope.saveTask = function(task) {
     tasksFactory.add(task);
     $scope.gridOptions.api.onNewRows();
     $scope.task = {};

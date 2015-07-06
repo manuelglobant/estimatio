@@ -55,6 +55,11 @@ module.factory('profilesFactory', function() {
   ];
 
   var selectedProfiles = [];
+  var availableProfiles = [];
+  
+  profiles.forEach(function (x) {
+    availableProfiles.push(x);
+  });
 
   var add = function (profileName) {
     profiles.push(
@@ -73,8 +78,16 @@ module.factory('profilesFactory', function() {
     return selectedProfiles;
   };
 
-  var select = function (profile) {
+  var select = function (profile) {    
     selectedProfiles.push(profiles[profiles.indexOf(profile)]);
+    
+    availableProfiles = availableProfiles.filter(function(x){
+      return profile.name !== x.name;
+    });
+  };
+
+  var available = function () {
+    return availableProfiles;
   };
 
   var get = function () {
@@ -85,6 +98,7 @@ module.factory('profilesFactory', function() {
     get: get,
     add: add,
     select: select,
-    selected: selected
+    selected: selected,
+    available: available
   };
 });

@@ -20,7 +20,9 @@ module.controller('tasksController', function($scope, userStoriesFactory, tasksF
     {headerName: 'Unit Testing Back (SSr)', field: 'unitTestingBack'},
     {headerName: 'Issue Fixing Front (SSr)', field: 'issueFixingFront'},
     {headerName: 'Issue Fixing Back (SSr)', field: 'issueFixingBack'},
-    {headerName: 'Manual Testing Front + Back (SSr)', field: 'manualTestingAll'}
+    {headerName: 'Manual Testing Front + Back (SSr)', field: 'manualTestingAll'},
+    {headerName: 'Frontend (SSr)', field: 'totalFront'},
+    {headerName: 'Backend (SSr)', field: 'totalBack'}
   ];
 
   $scope.gridOptions = {

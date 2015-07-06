@@ -1,7 +1,8 @@
 'use strict';
 var module = angular.module('estimation', [
   'angularGrid', 
-  'userStoriesFactory', 
+  'userStoriesFactory',
+  'userStoriesController',
   'tasksFactory', 
   'tasksController',
   'estimationFactory'
@@ -13,34 +14,6 @@ module.controller('estimationCtrl', function($scope, estimationFactory) {
   $scope.save = function(estimation){
     estimationFactory.save(estimation);
     $scope.estimation = {};
-  };
-});
-
-module.controller('userStoriesCtrl', function($scope, userStoriesFactory) {
-  var columnDefs = [
-    {headerName: 'Owner', field: 'owner'},
-    {headerName: '#', field: 'number'},
-    {headerName: 'Name', field: 'name'},
-    {headerName: 'Release', field: 'release'},
-    {headerName: 'Details', field: 'details'},
-    {headerName: 'Type (Epic, User Story, Technical Story)', field: 'type'}
-  ];
-
-  $scope.gridOptions = {
-    columnDefs: columnDefs,
-    rowData: userStoriesFactory.get(),
-    enableColResize: true,
-    ready: function(api) {
-      api.sizeColumnsToFit();
-    }
-  };
-
-  $scope.userStory = {};
-
-  $scope.save = function(userStory) {
-    userStoriesFactory.add(userStory);
-    $scope.gridOptions.api.onNewRows();  
-    $scope.userStory = {};
   };
 });
 

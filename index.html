@@ -15,6 +15,7 @@
   <script type="text/javascript" src="js/factories/estimationFactory.js"></script>
   <script type="text/javascript" src="js/factories/tasksFactory.js"></script>
   <script type="text/javascript" src="js/controllers/tasksController.js"></script>
+  <script type="text/javascript" src="js/controllers/userStoriesController.js"></script>
 
   <!-- angular app -->
   <script type="text/javascript" src="js/app.js"></script>
@@ -34,7 +35,7 @@
   </div>
   <hr>
 
-  <div ng-controller="userStoriesCtrl">
+  <div ng-controller="userStoriesController">
     <h2>User Stories</h2>
     <form novalidate>
       <input placeholder="Owner:" type="text" ng-model="userStory.owner" />

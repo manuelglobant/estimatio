@@ -1,22 +1,11 @@
 'use strict';
-var module = angular.module('estimation', ['angularGrid', 'userStoriesFactory', 'tasksFactory', 'tasksController']);
-
-module.factory('estimationFactory', function() {
-  var estimation = {};
-
-  var save = function (newEstimation) {
-    estimation = newEstimation;
-  };
-
-  var get = function () {
-    return estimation;
-  };
-
-  return {
-    get: get,
-    save: save
-  };
-});
+var module = angular.module('estimation', [
+  'angularGrid', 
+  'userStoriesFactory', 
+  'tasksFactory', 
+  'tasksController',
+  'estimationFactory'
+]);
 
 module.controller('estimationCtrl', function($scope, estimationFactory) {
   $scope.estimation = {};

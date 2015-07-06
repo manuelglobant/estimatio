@@ -26,8 +26,11 @@
   <script type="text/javascript" src="js/app.js"></script>
 </head>
 <body ng-app="estimation">
-  <div ui-view></div>
   <a ui-sref="estimation">Estimation</a>
+  <a ui-sref="stories">User Stories</a>
+  <a ui-sref="profiles">Profiles</a>
+  <a ui-sref="tasks">Tasks</a>
+  <div ui-view></div>
 
   <!-- <div ng-controller="estimationController">
     <h2>Estimation</h2>
@@ -42,7 +45,7 @@
   </div>
   <hr> -->
 
-  <div ng-controller="userStoriesController">
+  <!-- <div ng-controller="userStoriesController">
     <h2>User Stories</h2>
     <form novalidate>
       <input placeholder="Owner:" type="text" ng-model="userStory.owner" />
@@ -55,9 +58,9 @@
     </form>
     <div ag-grid="gridOptions" class="ag-fresh user-stories-grid"></div>
   </div>
-  <hr>
+  <hr> -->
 
-  <div ng-controller="profilesController">
+  <!-- <div ng-controller="profilesController">
     <h2>Profiles</h2>
     <form novalidate>
       <input placeholder="Profile name" ng-model="profile" type="text">
@@ -65,9 +68,9 @@
     </form>
     <div ag-grid="gridOptions" class="ag-fresh profiles-grid"></div>
   </div>
-  <hr>
+  <hr> -->
   
-  <div ng-controller="tasksController">
+  <!-- <div ng-controller="tasksController">
     <h2>Tasks</h2>
     <form novalidate>
       <select ng-model="task.userStory">
@@ -77,6 +80,6 @@
     </form>
     <div ag-grid="gridOptions" class="ag-fresh tasks-grid"></div>
   </div>
-  <hr>
+  <hr> -->
 </body>
 </html>

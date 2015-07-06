@@ -1,0 +1,9 @@
+<div ng-controller="profilesController">
+  <h2>Profiles</h2>
+  <form novalidate>
+    <input placeholder="Profile name" ng-model="profile" type="text">
+    <input type="submit" ng-click="add(profile)" value="Add" />
+  </form>
+  <div ag-grid="gridOptions" class="ag-fresh profiles-grid"></div>
+</div>
+<hr>

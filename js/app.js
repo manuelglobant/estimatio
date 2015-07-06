@@ -13,11 +13,23 @@ var module = angular.module('estimation', [
 ]);
 
 module.config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/estimation');
+  $urlRouterProvider.otherwise('/');
   $stateProvider
     .state('estimation', {
       url: '/estimation',
       templateUrl: 'partials/estimation.html'
+    })
+    .state('stories', {
+      url: '/stories',
+      templateUrl: 'partials/stories.html'
+    })
+    .state('profiles', {
+      url: '/profiles',
+      templateUrl: 'partials/profiles.html'
+    })
+    .state('tasks', {
+      url: '/tasks',
+      templateUrl: 'partials/tasks.html'
     });
 });
 

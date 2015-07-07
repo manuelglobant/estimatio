@@ -5,7 +5,6 @@ var module = angular.module('columnsFactory', []);
 module.factory('columnsFactory', function() {
 
   var calculateColumns = function (profile) {
-    debugger;
     var result = [];
 
     // name: 'Project Manager',

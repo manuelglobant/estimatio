@@ -38,7 +38,6 @@ module.controller('tasksController', function($scope, userStoriesFactory, tasksF
   function updateColumns (profiles) {
     profiles.forEach(function (profile) {      
       profile.columns.forEach(function (column) {
-        debugger;
         if (column.newValueHandler === null) column.newValueHandler = updateGrid;
         if (columnDefs.every(function(x){ return column.field !== x.field;})) columnDefs.push(column);
       });

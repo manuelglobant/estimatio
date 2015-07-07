@@ -36,8 +36,8 @@ module.factory('columnsFactory', function() {
 
     if (profile.hasManualTesting) {
       var forthColumn = {
-        headerName: 'Manual Fixing',
-        field: profile.name.split(' ').join('').toLowerCase().replace(/[{()}]/g, ''),
+        headerName: 'Manual Testing',
+        field: 'manualfixing',
         editable: true
       };
       result.push(forthColumn);

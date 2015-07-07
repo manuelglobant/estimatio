@@ -28,7 +28,6 @@ module.controller('tasksController', function($scope, userStoriesFactory, tasksF
   ];
 
   function updateGrid (newValue) {
-    debugger;
     var updatedTask = newValue.data;
     var updatedField = newValue.colDef.field;
     updatedTask[updatedField] = newValue.newValue;
@@ -39,8 +38,9 @@ module.controller('tasksController', function($scope, userStoriesFactory, tasksF
   function updateColumns (profiles) {
     profiles.forEach(function (profile) {      
       profile.columns.forEach(function (column) {
+        debugger;
         if (column.newValueHandler === null) column.newValueHandler = updateGrid;
-        if (columnDefs.indexOf(column) < 0) columnDefs.push(column);
+        if (columnDefs.every(function(x){ return column.field !== x.field;})) columnDefs.push(column);
       });
       $scope.gridOptions.api.onNewCols();
       $scope.gridOptions.api.sizeColumnsToFit();

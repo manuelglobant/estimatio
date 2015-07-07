@@ -9,7 +9,8 @@ var module = angular.module('estimation', [
   'estimationFactory',
   'estimationController',
   'profilesController',
-  'profilesFactory'
+  'profilesFactory',
+  'columnsFactory'
 ]);
 
 module.config(function($stateProvider, $urlRouterProvider) {

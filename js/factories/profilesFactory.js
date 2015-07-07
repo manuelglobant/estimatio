@@ -2,7 +2,7 @@
 
 var module = angular.module('profilesFactory', []);
 
-module.factory('profilesFactory', function() {
+module.factory('profilesFactory', function(columnsFactory) {
   var profiles = [
     {
       name: 'Frontend',
@@ -62,16 +62,16 @@ module.factory('profilesFactory', function() {
   });
 
   var add = function (profileName) {
-    profiles.push(
-      {
-        name: profileName,
-        hasUnitTesting: false,
-        hasIssueFixing: false,
-        hasManualTesting: false,
-        unitTestingModifier: 0,
-        issueFixingModifier: 0
-      }
-    );
+    var prof = {
+      name: profileName,
+      hasUnitTesting: false,
+      hasIssueFixing: false,
+      hasManualTesting: false,
+      unitTestingModifier: 0,
+      issueFixingModifier: 0
+    };
+    prof.columns = columnsFactory.calculate(prof);
+    profiles.push(prof);
   };
 
   var selected = function () {

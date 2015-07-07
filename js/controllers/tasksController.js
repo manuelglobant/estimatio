@@ -9,23 +9,22 @@ module.controller('tasksController', function($scope, userStoriesFactory, tasksF
   $scope.task = {};
   $scope.profile = {};
 
-  var columnDefs = [
+  $scope.columnDefs = [
     {headerName: '#', field: 'usNumber'},
     {headerName: 'Name', field: 'name', editable: true},
     {headerName: 'Release', field: 'usRelease'},
-    {headerName: 'Assumptions', field: 'assumptions', editable: true},
-    // {headerName: 'Frontend (SSr)', field: 'frontend', editable: true, newValueHandler: updateGrid},
-    // {headerName: 'Backend (SSr)', field: 'backend', editable: true, newValueHandler: updateGrid},
-    // {headerName: 'Design and Architecture', field: 'architecture', editable: true},
-    // {headerName: 'Visual Designer', field: 'visual', editable: true},
-    // {headerName: 'Unit Testing Front (SSr)', field: 'unitTestingFront'},
-    // {headerName: 'Unit Testing Back (SSr)', field: 'unitTestingBack'},
-    // {headerName: 'Issue Fixing Front (SSr)', field: 'issueFixingFront'},
-    // {headerName: 'Issue Fixing Back (SSr)', field: 'issueFixingBack'},
-    // {headerName: 'Manual Testing Front + Back (SSr)', field: 'manualTestingAll'},
-    // {headerName: 'Frontend (SSr)', field: 'totalFront'},
-    // {headerName: 'Backend (SSr)', field: 'totalBack'}
+    {headerName: 'Assumptions', field: 'assumptions', editable: true}
   ];
+
+  $scope.gridOptions = {
+    columnDefs: $scope.columnDefs,
+    rowData: tasksFactory.get(),
+    enableColResize: true,
+    ready: function(api) {
+      api.sizeColumnsToFit();
+      updateColumns(profilesFactory.selected());
+    }
+  };
 
   function updateGrid (newValue) {
     var updatedTask = newValue.data;
@@ -39,21 +38,14 @@ module.controller('tasksController', function($scope, userStoriesFactory, tasksF
     profiles.forEach(function (profile) {      
       profile.columns.forEach(function (column) {
         if (column.newValueHandler === null) column.newValueHandler = updateGrid;
-        if (columnDefs.every(function(x){ return column.field !== x.field;})) columnDefs.push(column);
+        if ($scope.columnDefs.every(function(x) { return column.field !== x.field;})) {
+          $scope.columnDefs.push(column);
+        }
       });
       $scope.gridOptions.api.onNewCols();
       $scope.gridOptions.api.sizeColumnsToFit();
     });
   }
-
-  $scope.gridOptions = {
-    columnDefs: columnDefs,
-    rowData: tasksFactory.get(),
-    enableColResize: true,
-    ready: function(api) {
-      api.sizeColumnsToFit();
-    }
-  };
 
   $scope.saveProfile = function(profile) {
     profile = JSON.parse(profile);

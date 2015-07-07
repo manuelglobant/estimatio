@@ -27,6 +27,18 @@ module.controller('tasksController', function($scope, userStoriesFactory, tasksF
     // {headerName: 'Backend (SSr)', field: 'totalBack'}
   ];
 
+  function updateGrid (newValue) {
+    var updatedTask = newValue.data;
+    var updatedField = newValue.colDef.field;
+    updatedTask[updatedField] = newValue.newValue;
+    tasksFactory.update(updatedTask);
+    newValue.api.onNewRows();
+  }
+
+  function updateColumns (profiles) {
+    // profiles.forEach(function (x) {});
+  }
+
   $scope.gridOptions = {
     columnDefs: columnDefs,
     rowData: tasksFactory.get(),
@@ -36,18 +48,11 @@ module.controller('tasksController', function($scope, userStoriesFactory, tasksF
     }
   };
 
-  function updateGrid (newValue) {
-    var updatedTask = newValue.data;
-    var updatedField = newValue.colDef.field;
-    updatedTask[updatedField] = newValue.newValue;
-    tasksFactory.update(updatedTask);
-    newValue.api.onNewRows();
-  }
-
   $scope.saveProfile = function(profile) {
     profile = JSON.parse(profile);
     profilesFactory.select(profile);
     $scope.profiles = profilesFactory.available();
+    updateColumns(profilesFactory.selected());
   };
 
   $scope.saveTask = function(task) {

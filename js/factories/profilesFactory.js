@@ -78,9 +78,13 @@ module.factory('profilesFactory', function() {
     return selectedProfiles;
   };
 
-  var select = function (profile) {    
-    selectedProfiles.push(profiles[profiles.indexOf(profile)]);
+  var select = function (profile) {
+    var selectedProfile = profiles.filter(function(x){
+      return profile.name === x.name;
+    })[0];
     
+    selectedProfiles.push(selectedProfile);
+
     availableProfiles = availableProfiles.filter(function(x){
       return profile.name !== x.name;
     });

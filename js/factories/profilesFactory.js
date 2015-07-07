@@ -58,7 +58,7 @@ module.factory('profilesFactory', function(columnsFactory) {
   var availableProfiles = [];
   
   profiles.forEach(function (x) {
-    x.columns = columnsFactory.calculate(x);
+    x.columns = columnsFactory.build(x);
     availableProfiles.push(x);
   });
 
@@ -71,7 +71,7 @@ module.factory('profilesFactory', function(columnsFactory) {
       unitTestingModifier: 0,
       issueFixingModifier: 0
     };
-    prof.columns = columnsFactory.calculate(prof);
+    prof.columns = columnsFactory.build(prof);
     profiles.push(prof);
     availableProfiles.push(prof);
   };

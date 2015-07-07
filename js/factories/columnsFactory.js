@@ -4,12 +4,14 @@ var module = angular.module('columnsFactory', []);
 
 module.factory('columnsFactory', function() {
 
-  var calculateColumns = function (profile) {
+  var buildColumns = function (profile) {
     var result = [];
+    var field = profile.name.split(' ').join('').toLowerCase().replace(/[{()}]/g, '');
+
 
     var firstColumn = {
       headerName: profile.name,
-      field: profile.name.split(' ').join('').toLowerCase().replace(/[{()}]/g, ''),
+      field: field,
       editable: true,
       newValueHandler: null
     };
@@ -17,10 +19,14 @@ module.factory('columnsFactory', function() {
     result.push(firstColumn);
 
     if (profile.hasUnitTesting) {
+
       var secondColumn = {
         headerName: profile.name + ' Unit Testing',
-        field: profile.name.split(' ').join('').toLowerCase().replace(/[{()}]/g, '') + 'unittesting',
-        editable: true
+        field: field + 'unittesting',
+        editable: true,
+        valueGetter: function (params) { 
+          return params.data[field] * profile.unitTestingModifier / 100; 
+        }
       };
       result.push(secondColumn);
     }
@@ -28,8 +34,11 @@ module.factory('columnsFactory', function() {
     if (profile.hasIssueFixing) {
       var thirdColumn = {
         headerName: profile.name + ' Issue Fixing',
-        field: profile.name.split(' ').join('').toLowerCase().replace(/[{()}]/g, '') + 'issuefixing',
-        editable: true
+        field: field + 'issuefixing',
+        editable: true,
+        valueGetter: function (params) { 
+          return params.data[field] * profile.issueFixingModifier / 100; 
+        }
       };
       result.push(thirdColumn);
     }
@@ -47,6 +56,6 @@ module.factory('columnsFactory', function() {
   };
 
   return {
-    calculate: calculateColumns
+    build: buildColumns
   };
 });

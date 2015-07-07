@@ -10,8 +10,7 @@ module.factory('profilesFactory', function(columnsFactory) {
       hasIssueFixing: true,
       hasManualTesting: true,
       unitTestingModifier: 35,
-      issueFixingModifier: 20,
-      columns: columnsFactory.calculate()
+      issueFixingModifier: 20
     },
     {
       name: 'Backend',
@@ -71,7 +70,7 @@ module.factory('profilesFactory', function(columnsFactory) {
       unitTestingModifier: 0,
       issueFixingModifier: 0
     };
-    prof.colums = columnsFactory.calculate(prof);
+    prof.columns = columnsFactory.calculate(prof);
     profiles.push(prof);
   };
 

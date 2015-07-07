@@ -7,13 +7,6 @@ module.factory('columnsFactory', function() {
   var calculateColumns = function (profile) {
     var result = [];
 
-    // name: 'Project Manager',
-    // hasUnitTesting: false,
-    // hasIssueFixing: false,
-    // hasManualTesting: false,
-    // unitTestingModifier: 0,
-    // issueFixingModifier: 0
-
     var firstColumn = {
       headerName: profile.name,
       field: profile.name.split(' ').join('').toLowerCase().replace(/[{()}]/g, ''),
@@ -29,14 +22,26 @@ module.factory('columnsFactory', function() {
         field: profile.name.split(' ').join('').toLowerCase().replace(/[{()}]/g, '') + 'unittesting',
         editable: true
       };
-
       result.push(secondColumn);
     }
+    
+    if (profile.hasIssueFixing) {
+      var thirdColumn = {
+        headerName: profile.name + ' Issue Fixing',
+        field: profile.name.split(' ').join('').toLowerCase().replace(/[{()}]/g, '') + 'issuefixing',
+        editable: true
+      };
+      result.push(thirdColumn);
+    }
 
-    // {headerName: 'Frontend (SSr)', field: 'frontend', editable: true, newValueHandler: updateGrid},
-    //  {headerName: 'Unit Testing Front (SSr)', field: 'unitTestingFront'},
-    //  {headerName: 'Issue Fixing Front (SSr)', field: 'issueFixingFront'},
-    // // {headerName: 'Manual Testing Front + Back (SSr)', field: 'manualTestingAll'},
+    if (profile.hasManualTesting) {
+      var forthColumn = {
+        headerName: 'Manual Fixing',
+        field: profile.name.split(' ').join('').toLowerCase().replace(/[{()}]/g, ''),
+        editable: true
+      };
+      result.push(forthColumn);
+    }
 
     return result;
   };

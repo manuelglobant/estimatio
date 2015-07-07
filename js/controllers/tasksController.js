@@ -38,9 +38,10 @@ module.controller('tasksController', function($scope, userStoriesFactory, tasksF
   function updateColumns (profiles) {
     profiles.forEach(function (profile) {      
       profile.columns.forEach(function (column) {
-        columnDefs.push(column);
+        if (columnDefs.indexOf(column) < 0) columnDefs.push(column);
       });
       $scope.gridOptions.api.onNewCols();
+      $scope.gridOptions.api.sizeColumnsToFit();
     });
   }
 

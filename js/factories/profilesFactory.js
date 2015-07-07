@@ -21,7 +21,7 @@ module.factory('profilesFactory', function(columnsFactory) {
       issueFixingModifier: 20
     },
     {
-      name: 'Visual Desginer',
+      name: 'Visual Designer',
       hasUnitTesting: false,
       hasIssueFixing: true,
       hasManualTesting: true,

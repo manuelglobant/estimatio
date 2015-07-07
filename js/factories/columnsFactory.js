@@ -16,7 +16,7 @@ module.factory('columnsFactory', function() {
 
     var firstColumn = {
       headerName: profile.name,
-      field: profile.name.split(' ').join(''),
+      field: profile.name.split(' ').join('').toLowerCase(),
       editable: true,
       newValueHandler: null
     };

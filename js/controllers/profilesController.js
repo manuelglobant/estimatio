@@ -22,6 +22,7 @@ module.controller('profilesController', function($scope, profilesFactory) {
   } 
 
   $scope.add = function (profile) {
+    debugger;
     profilesFactory.add(profile);
     $scope.gridOptions.api.onNewRows();
     $scope.profile = '';

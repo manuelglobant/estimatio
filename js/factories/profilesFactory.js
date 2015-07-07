@@ -73,6 +73,7 @@ module.factory('profilesFactory', function(columnsFactory) {
     };
     prof.columns = columnsFactory.calculate(prof);
     profiles.push(prof);
+    availableProfiles.push(prof);
   };
 
   var selected = function () {

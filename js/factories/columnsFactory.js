@@ -8,23 +8,30 @@ module.factory('columnsFactory', function() {
     var result = [];
 
     // name: 'Project Manager',
-    //   hasUnitTesting: false,
-    //   hasIssueFixing: false,
-    //   hasManualTesting: false,
-    //   unitTestingModifier: 0,
-    //   issueFixingModifier: 0
+    // hasUnitTesting: false,
+    // hasIssueFixing: false,
+    // hasManualTesting: false,
+    // unitTestingModifier: 0,
+    // issueFixingModifier: 0
 
     var firstColumn = {
       headerName: profile.name,
-      field: profile.name.split(' ').join('').toLowerCase(),
+      field: profile.name.split(' ').join('').toLowerCase().replace(/[{()}]/g, ''),
       editable: true,
       newValueHandler: null
     };
+
     result.push(firstColumn);
 
-    // if()
-    // result.push()
+    if (profile.hasUnitTesting) {
+      var secondColumn = {
+        headerName: profile.name + ' Unit Testing',
+        field: profile.name.split(' ').join('').toLowerCase().replace(/[{()}]/g, '') + 'unittesting',
+        editable: true
+      };
 
+      result.push(secondColumn);
+    }
 
     // {headerName: 'Frontend (SSr)', field: 'frontend', editable: true, newValueHandler: updateGrid},
     //  {headerName: 'Unit Testing Front (SSr)', field: 'unitTestingFront'},

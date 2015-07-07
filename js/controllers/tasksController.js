@@ -36,7 +36,12 @@ module.controller('tasksController', function($scope, userStoriesFactory, tasksF
   }
 
   function updateColumns (profiles) {
-    // profiles.forEach(function (x) {});
+    profiles.forEach(function (profile) {      
+      profile.columns.forEach(function (column) {
+        columnDefs.push(column);
+      });
+      $scope.gridOptions.api.onNewCols();
+    });
   }
 
   $scope.gridOptions = {

@@ -82,7 +82,7 @@ module.factory('profilesFactory', function() {
     var selectedProfile = profiles.filter(function(x){
       return profile.name === x.name;
     })[0];
-    
+
     selectedProfiles.push(selectedProfile);
 
     availableProfiles = availableProfiles.filter(function(x){

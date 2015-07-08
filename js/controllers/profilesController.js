@@ -27,12 +27,18 @@ module.controller('profilesController', function($scope, profilesFactory) {
     $scope.profile = '';
   };
 
+  function cloneRowData() {
+    debugger;
+    $scope.originalGrid = _.clone($scope.gridOptions.rowData);
+  }
+
   $scope.gridOptions = {
     angularCompileRows: true,
     columnDefs: columnDefs,
     rowData: profilesFactory.get(),
     enableColResize: true,
     ready: function(api) {
+      cloneRowData();
       api.sizeColumnsToFit();
     }
   };

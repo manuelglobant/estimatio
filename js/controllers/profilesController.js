@@ -43,10 +43,10 @@ module.controller('profilesController', function($scope, profilesFactory) {
 
   $scope.update = function (profile) {
     profilesFactory.update(profile);
+    $scope.originalGrid[$scope.originalGrid.indexOf(profile)] = profile;
   };
 
   function cloneRowData() {
-    debugger;
     $scope.originalGrid = _.clone($scope.gridOptions.rowData);
   }
   

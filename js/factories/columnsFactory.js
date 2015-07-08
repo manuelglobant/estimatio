@@ -19,7 +19,6 @@ module.factory('columnsFactory', function() {
     result.push(firstColumn);
 
     if (profile.hasUnitTesting) {
-
       var secondColumn = {
         headerName: profile.name + ' Unit Testing',
         field: field + 'unittesting',

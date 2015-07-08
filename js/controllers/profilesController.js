@@ -4,6 +4,7 @@ var module = angular.module('profilesController', []);
 
 module.controller('profilesController', function($scope, profilesFactory) {
   $scope.profile = '';
+  var originalGrid;
 
   var columnDefs = [
     {headerName: 'Name', field: 'name', editable: true},
@@ -26,8 +27,16 @@ module.controller('profilesController', function($scope, profilesFactory) {
   function checkDifference (newValue) {
     var profile = (newValue.data) ? newValue.data : newValue;
     
-    if (parseInt(newValue.newValue) !== newValue.oldValue) {
+    debugger;
+    
+    // if (parseInt(newValue.newValue) !== newValue.oldValue) {
+    //   profile.changed = true;
+    // }
+
+    if (originalGrid[originalGrid.indexOf(profile)] !== profile) {
       profile.changed = true;
+    } else {
+      profile.changed = false;
     }
 
     if (newValue.data) profile[newValue.colDef.field] = parseInt(newValue.newValue);
@@ -43,11 +52,11 @@ module.controller('profilesController', function($scope, profilesFactory) {
 
   $scope.update = function (profile) {
     profilesFactory.update(profile);
-    $scope.originalGrid[$scope.originalGrid.indexOf(profile)] = profile;
+    originalGrid[originalGrid.indexOf(profile)] = profile;
   };
 
   function cloneRowData() {
-    $scope.originalGrid = _.clone($scope.gridOptions.rowData);
+    originalGrid = _.map($scope.gridOptions.rowData, _.clone);
   }
   
   $scope.gridOptions = {

@@ -50,6 +50,20 @@ module.factory('columnsFactory', function() {
       result.push(forthColumn);
     }
 
+    if (profile.hasIssueFixing  || profile.hasUnitTesting) {
+      var fifthColumn = {
+        headerName: 'Total ' + profile.name,
+        field: field + 'total',
+        editable: false,
+        valueGetter: function (params) { 
+          var firstColumnValue = parseInt(params.data[field])  || 0;
+          var secondColumnValue = parseInt(params.data[field] * profile.issueFixingModifier / 100) || 0;
+          var thirdColumnValue = parseInt(params.data[field] * profile.unitTestingModifier / 100) || 0;
+          return firstColumnValue + secondColumnValue + thirdColumnValue;
+        }
+      };
+      result.push(fifthColumn);
+    }
     return result;
   };
 

@@ -59,6 +59,7 @@ module.controller('profilesController', function($scope, profilesFactory) {
   $scope.update = function (profile) {
     profilesFactory.update(profile);
     originalProfileData[originalProfileData.indexOf(profile)] = profile;
+    profile.changed = false;
   };
 
   function cloneRowData() {

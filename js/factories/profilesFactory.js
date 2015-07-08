@@ -11,16 +11,7 @@ module.factory('profilesFactory', function(columnsFactory) {
       hasManualTesting: true,
       unitTestingModifier: 35,
       issueFixingModifier: 20,
-      changed: false,
-      lastSubmited: {
-        name: 'Frontend',
-        hasUnitTesting: true,
-        hasIssueFixing: true,
-        hasManualTesting: true,
-        unitTestingModifier: 35,
-        issueFixingModifier: 20,
-        changed: false
-      }
+      changed: false
     },
     {
       name: 'Backend',
@@ -29,16 +20,7 @@ module.factory('profilesFactory', function(columnsFactory) {
       hasManualTesting: true,
       unitTestingModifier: 35,
       issueFixingModifier: 20,
-      changed: false,
-      lastSubmited: {
-        name: 'Backend',
-        hasUnitTesting: true,
-        hasIssueFixing: true,
-        hasManualTesting: true,
-        unitTestingModifier: 35,
-        issueFixingModifier: 20,
-        changed: false
-      }
+      changed: false
     },
     {
       name: 'Visual Designer',
@@ -47,16 +29,7 @@ module.factory('profilesFactory', function(columnsFactory) {
       hasManualTesting: true,
       unitTestingModifier: 0,
       issueFixingModifier: 20,
-      changed: false,
-      lastSubmited: {
-        name: 'Visual Designer',
-        hasUnitTesting: false,
-        hasIssueFixing: true,
-        hasManualTesting: true,
-        unitTestingModifier: 0,
-        issueFixingModifier: 20,
-        changed: false
-      }
+      changed: false
     },
     {
       name: 'Architect',
@@ -65,16 +38,7 @@ module.factory('profilesFactory', function(columnsFactory) {
       hasManualTesting: false,
       unitTestingModifier: 0,
       issueFixingModifier: 0,
-      changed: false,
-      lastSubmited: {
-        name: 'Architect',
-        hasUnitTesting: false,
-        hasIssueFixing: false,
-        hasManualTesting: false,
-        unitTestingModifier: 0,
-        issueFixingModifier: 0,
-        changed: false
-      }
+      changed: false
     },
     {
       name: 'Buisness Analyst',
@@ -83,16 +47,7 @@ module.factory('profilesFactory', function(columnsFactory) {
       hasManualTesting: false,
       unitTestingModifier: 0,
       issueFixingModifier: 0,
-      changed: false,
-      lastSubmited: {
-        name: 'Buisness Analyst',
-        hasUnitTesting: false,
-        hasIssueFixing: false,
-        hasManualTesting: false,
-        unitTestingModifier: 0,
-        issueFixingModifier: 0,
-        changed: false
-      } 
+      changed: false
     },
     {
       name: 'Project Manager',
@@ -101,16 +56,7 @@ module.factory('profilesFactory', function(columnsFactory) {
       hasManualTesting: false,
       unitTestingModifier: 0,
       issueFixingModifier: 0,
-      changed: false,
-      lastSubmited: {
-        name: 'Project Manager',
-        hasUnitTesting: false,
-        hasIssueFixing: false,
-        hasManualTesting: false,
-        unitTestingModifier: 0,
-        issueFixingModifier: 0,
-        changed: false
-      }
+      changed: false
     }
   ];
 
@@ -119,7 +65,6 @@ module.factory('profilesFactory', function(columnsFactory) {
   
   profiles.forEach(function (x) {
     x.columns = columnsFactory.build(x);
-    x.lastSubmited.columns = x.columns;
     availableProfiles.push(x);
   });
 
@@ -133,21 +78,17 @@ module.factory('profilesFactory', function(columnsFactory) {
       issueFixingModifier: 0,
       changed: false
     };
-    profile.lastSubmited = profile;
     profile.columns = columnsFactory.build(profile);
-    profile.lastSubmited.columns = columnsFactory.build(profile);
     profiles.push(profile);
     availableProfiles.push(profile);
   };
 
   var update = function (profile) {
-    debugger;
     var updatedProfile = profiles.filter(function (x) {
       return profile.name === x.name;
     })[0];
 
     updatedProfile.columns = columnsFactory.build(updatedProfile);
-    updatedProfile.lastSubmited.columns = columnsFactory.build(updatedProfile);
   };
 
   var selected = function () {

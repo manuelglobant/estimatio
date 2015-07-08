@@ -7,11 +7,11 @@ module.controller('profilesController', function($scope, profilesFactory) {
 
   var columnDefs = [
     {headerName: 'Name', field: 'name', editable: true},
-    {headerName: 'Unit Testing', template: '<input type="checkbox" name="hasUnitTesting" ng-model="data.hasUnitTesting" ng-click="checkLastSubmited(data)"/>', editable: false},
-    {headerName: 'Unit Testing Modifier', field: 'unitTestingModifier', editable: enabledUnitTestingModifier, newValueHandler: checkLastSubmited},
-    {headerName: 'Issue Fixing', template: '<input type="checkbox" name="hasIssueFixing" ng-model="data.hasIssueFixing" ng-click="checkLastSubmited(data)"/>', editable: false},
-    {headerName: 'Issue Fixing Modifier', field: 'issueFixingModifier', editable: enabledIssueFixingModifier, newValueHandler: checkLastSubmited},
-    {headerName: 'Manual Testing', template: '<input type="checkbox" name="hasManualTesting" ng-model="data.hasManualTesting" ng-click="checkLastSubmited(data)"/>', editable: false},
+    {headerName: 'Unit Testing', template: '<input type="checkbox" name="hasUnitTesting" ng-model="data.hasUnitTesting" ng-click="checkDifference(data)"/>', editable: false},
+    {headerName: 'Unit Testing Modifier', field: 'unitTestingModifier', editable: enabledUnitTestingModifier, newValueHandler: checkDifference},
+    {headerName: 'Issue Fixing', template: '<input type="checkbox" name="hasIssueFixing" ng-model="data.hasIssueFixing" ng-click="checkDifference(data)"/>', editable: false},
+    {headerName: 'Issue Fixing Modifier', field: 'issueFixingModifier', editable: enabledIssueFixingModifier, newValueHandler: checkDifference},
+    {headerName: 'Manual Testing', template: '<input type="checkbox" name="hasManualTesting" ng-model="data.hasManualTesting" ng-click="checkDifference(data)"/>', editable: false},
     {headerName: '', template: '<button ng-disabled="!data.changed" ng-click="update(data)" name="submit">Update</button>', editable: false},
   ];
 
@@ -23,17 +23,9 @@ module.controller('profilesController', function($scope, profilesFactory) {
     return data.hasIssueFixing;
   }
 
-  function checkLastSubmited (newValue) {
+  function checkDifference (newValue) {
     var profile = (newValue.data) ? newValue.data : newValue;
     
-    // var oldProfile = profile.lastSubmited;
-    // var newProfile = _.clone(profile);
-    // delete newProfile.lastSubmited;
-    // if (!_.isEqual(oldProfile, newProfile)) {
-    //   profile.changed = true;
-    // } else {
-    //   profile.changed = false;
-    // }
     if (parseInt(newValue.newValue) !== newValue.oldValue) {
       profile.changed = true;
     }
@@ -41,7 +33,7 @@ module.controller('profilesController', function($scope, profilesFactory) {
     if (newValue.data) profile[newValue.colDef.field] = parseInt(newValue.newValue);
   }
 
-  $scope.checkLastSubmited = checkLastSubmited;
+  $scope.checkDifference = checkDifference;
 
   $scope.add = function (profile) {
     profilesFactory.add(profile);

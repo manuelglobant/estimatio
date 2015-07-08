@@ -4,7 +4,7 @@ var module = angular.module('profilesController', []);
 
 module.controller('profilesController', function($scope, profilesFactory) {
   $scope.profile = '';
-  var originalGrid;
+  var originalProfileData;
 
   var columnDefs = [
     {headerName: 'Name', field: 'name', editable: true},
@@ -26,14 +26,20 @@ module.controller('profilesController', function($scope, profilesFactory) {
 
   function checkDifference (newValue) {
     var profile = (newValue.data) ? newValue.data : newValue;
-    
-    debugger;
-    
-    // if (parseInt(newValue.newValue) !== newValue.oldValue) {
-    //   profile.changed = true;
-    // }
 
-    if (originalGrid[originalGrid.indexOf(profile)] !== profile) {
+    var originalProfile = _.find(originalProfileData, function(x) {
+      return x.name === profile.name;
+    });
+
+    var comparison = {
+      original: _.clone(originalProfile),
+      updated: _.clone(profile)
+    };
+
+    delete comparison.original.changed;
+    delete comparison.updated.changed;
+
+    if (!_.isEqual(comparison.original, comparison.updated)) {
       profile.changed = true;
     } else {
       profile.changed = false;
@@ -52,11 +58,12 @@ module.controller('profilesController', function($scope, profilesFactory) {
 
   $scope.update = function (profile) {
     profilesFactory.update(profile);
-    originalGrid[originalGrid.indexOf(profile)] = profile;
+    originalProfileData[originalProfileData.indexOf(profile)] = profile;
   };
 
   function cloneRowData() {
-    originalGrid = _.map($scope.gridOptions.rowData, _.clone);
+    originalProfileData = _.map($scope.gridOptions.rowData, _.clone);
+    debugger;
   }
   
   $scope.gridOptions = {

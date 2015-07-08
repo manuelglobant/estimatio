@@ -1,7 +1,7 @@
 'use strict';
 var module = angular.module('estimation', [
   'ui.router',
-  'angularGrid', 
+  'angularGrid',
   'userStoriesFactory',
   'userStoriesController',
   'tasksFactory', 

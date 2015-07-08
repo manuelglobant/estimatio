@@ -10,7 +10,8 @@ module.factory('profilesFactory', function(columnsFactory) {
       hasIssueFixing: true,
       hasManualTesting: true,
       unitTestingModifier: 35,
-      issueFixingModifier: 20
+      issueFixingModifier: 20,
+      changed: false
     },
     {
       name: 'Backend',
@@ -18,7 +19,8 @@ module.factory('profilesFactory', function(columnsFactory) {
       hasIssueFixing: true,
       hasManualTesting: true,
       unitTestingModifier: 35,
-      issueFixingModifier: 20
+      issueFixingModifier: 20,
+      changed: false
     },
     {
       name: 'Visual Designer',
@@ -26,7 +28,8 @@ module.factory('profilesFactory', function(columnsFactory) {
       hasIssueFixing: true,
       hasManualTesting: true,
       unitTestingModifier: 0,
-      issueFixingModifier: 20
+      issueFixingModifier: 20,
+      changed: false
     },
     {
       name: 'Architect',
@@ -34,7 +37,8 @@ module.factory('profilesFactory', function(columnsFactory) {
       hasIssueFixing: false,
       hasManualTesting: false,
       unitTestingModifier: 0,
-      issueFixingModifier: 0
+      issueFixingModifier: 0,
+      changed: false
     },
     {
       name: 'Buisness Analyst',
@@ -42,7 +46,8 @@ module.factory('profilesFactory', function(columnsFactory) {
       hasIssueFixing: false,
       hasManualTesting: false,
       unitTestingModifier: 0,
-      issueFixingModifier: 0
+      issueFixingModifier: 0,
+      changed: false
     },
     {
       name: 'Project Manager',
@@ -50,7 +55,8 @@ module.factory('profilesFactory', function(columnsFactory) {
       hasIssueFixing: false,
       hasManualTesting: false,
       unitTestingModifier: 0,
-      issueFixingModifier: 0
+      issueFixingModifier: 0,
+      changed: false
     }
   ];
 
@@ -63,17 +69,26 @@ module.factory('profilesFactory', function(columnsFactory) {
   });
 
   var add = function (profileName) {
-    var prof = {
+    var profile = {
       name: profileName,
       hasUnitTesting: false,
       hasIssueFixing: false,
       hasManualTesting: false,
       unitTestingModifier: 0,
-      issueFixingModifier: 0
+      issueFixingModifier: 0,
+      changed: false
     };
-    prof.columns = columnsFactory.build(prof);
-    profiles.push(prof);
-    availableProfiles.push(prof);
+    profile.columns = columnsFactory.build(profile);
+    profiles.push(profile);
+    availableProfiles.push(profile);
+  };
+
+  var update = function (profile) {
+    var updatedProfile = profiles.filter(function (x) {
+      return profile.name === x.name;
+    })[0];
+
+    updatedProfile.columns = columnsFactory.build(updatedProfile);
   };
 
   var selected = function () {
@@ -81,13 +96,13 @@ module.factory('profilesFactory', function(columnsFactory) {
   };
 
   var select = function (profile) {
-    var selectedProfile = profiles.filter(function(x){
+    var selectedProfile = profiles.filter(function (x) {
       return profile.name === x.name;
     })[0];
 
     selectedProfiles.push(selectedProfile);
 
-    availableProfiles = availableProfiles.filter(function(x){
+    availableProfiles = availableProfiles.filter(function (x) {
       return profile.name !== x.name;
     });
   };
@@ -104,6 +119,7 @@ module.factory('profilesFactory', function(columnsFactory) {
     get: get,
     add: add,
     select: select,
+    update: update,
     selected: selected,
     available: available
   };

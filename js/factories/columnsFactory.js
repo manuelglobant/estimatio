@@ -8,7 +8,6 @@ module.factory('columnsFactory', function() {
     var result = [];
     var field = profile.name.split(' ').join('').toLowerCase().replace(/[{()}]/g, '');
 
-
     var firstColumn = {
       headerName: profile.name,
       field: field,
@@ -19,7 +18,6 @@ module.factory('columnsFactory', function() {
     result.push(firstColumn);
 
     if (profile.hasUnitTesting) {
-
       var secondColumn = {
         headerName: profile.name + ' Unit Testing',
         field: field + 'unittesting',

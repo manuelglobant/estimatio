@@ -8,7 +8,6 @@ module.factory('columnsFactory', function() {
     var result = [];
     var field = profile.name.split(' ').join('').toLowerCase().replace(/[{()}]/g, '');
 
-
     var firstColumn = {
       headerName: profile.name,
       field: field,

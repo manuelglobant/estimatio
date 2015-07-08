@@ -12,6 +12,7 @@ module.controller('profilesController', function($scope, profilesFactory) {
     {headerName: 'Issue Fixing', template: '<input type="checkbox" name="hasIssueFixing" ng-model="data.hasIssueFixing"/>', editable: false},
     {headerName: 'Issue Fixing Modifier', field: 'issueFixingModifier', editable: enabledIssueFixingModifier},
     {headerName: 'Manual Testing', template: '<input type="checkbox" name="hasManualTesting" ng-model="data.hasManualTesting"/>', editable: false},
+    {headerName: '', template: '<button ng-disabled="!data.changed" ng-click="update(data)" name="submit">Update</button>', editable: false},
   ];
 
   function enabledUnitTestingModifier(data) {
@@ -26,6 +27,10 @@ module.controller('profilesController', function($scope, profilesFactory) {
     profilesFactory.add(profile);
     $scope.gridOptions.api.onNewRows();
     $scope.profile = '';
+  };
+
+  $scope.update = function (profile) {
+    profilesFactory.update(profile);
   };
 
   $scope.gridOptions = {

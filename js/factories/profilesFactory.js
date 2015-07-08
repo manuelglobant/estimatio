@@ -10,7 +10,16 @@ module.factory('profilesFactory', function(columnsFactory) {
       hasIssueFixing: true,
       hasManualTesting: true,
       unitTestingModifier: 35,
-      issueFixingModifier: 20
+      issueFixingModifier: 20,
+      changed: false,
+      lastSubmited: {
+        name: 'Frontend',
+        hasUnitTesting: true,
+        hasIssueFixing: true,
+        hasManualTesting: true,
+        unitTestingModifier: 35,
+        issueFixingModifier: 20,
+      }
     },
     {
       name: 'Backend',
@@ -18,7 +27,16 @@ module.factory('profilesFactory', function(columnsFactory) {
       hasIssueFixing: true,
       hasManualTesting: true,
       unitTestingModifier: 35,
-      issueFixingModifier: 20
+      issueFixingModifier: 20,
+      changed: false,
+      lastSubmited: {
+        name: 'Backend',
+        hasUnitTesting: true,
+        hasIssueFixing: true,
+        hasManualTesting: true,
+        unitTestingModifier: 35,
+        issueFixingModifier: 20,
+      }
     },
     {
       name: 'Visual Designer',
@@ -26,7 +44,16 @@ module.factory('profilesFactory', function(columnsFactory) {
       hasIssueFixing: true,
       hasManualTesting: true,
       unitTestingModifier: 0,
-      issueFixingModifier: 20
+      issueFixingModifier: 20,
+      changed: false,
+      lastSubmited: {
+        name: 'Visual Designer',
+        hasUnitTesting: false,
+        hasIssueFixing: true,
+        hasManualTesting: true,
+        unitTestingModifier: 0,
+        issueFixingModifier: 20,
+      }
     },
     {
       name: 'Architect',
@@ -34,7 +61,16 @@ module.factory('profilesFactory', function(columnsFactory) {
       hasIssueFixing: false,
       hasManualTesting: false,
       unitTestingModifier: 0,
-      issueFixingModifier: 0
+      issueFixingModifier: 0,
+      changed: false,
+      lastSubmited: {
+        name: 'Architect',
+        hasUnitTesting: false,
+        hasIssueFixing: false,
+        hasManualTesting: false,
+        unitTestingModifier: 0,
+        issueFixingModifier: 0,
+      }
     },
     {
       name: 'Buisness Analyst',
@@ -42,7 +78,16 @@ module.factory('profilesFactory', function(columnsFactory) {
       hasIssueFixing: false,
       hasManualTesting: false,
       unitTestingModifier: 0,
-      issueFixingModifier: 0
+      issueFixingModifier: 0,
+      changed: false,
+      lastSubmited: {
+        name: 'Buisness Analyst',
+        hasUnitTesting: false,
+        hasIssueFixing: false,
+        hasManualTesting: false,
+        unitTestingModifier: 0,
+        issueFixingModifier: 0,
+      } 
     },
     {
       name: 'Project Manager',
@@ -50,7 +95,16 @@ module.factory('profilesFactory', function(columnsFactory) {
       hasIssueFixing: false,
       hasManualTesting: false,
       unitTestingModifier: 0,
-      issueFixingModifier: 0
+      issueFixingModifier: 0,
+      changed: false,
+      lastSubmited: {
+        name: 'Project Manager',
+        hasUnitTesting: false,
+        hasIssueFixing: false,
+        hasManualTesting: false,
+        unitTestingModifier: 0,
+        issueFixingModifier: 0,
+      }
     }
   ];
 
@@ -63,17 +117,23 @@ module.factory('profilesFactory', function(columnsFactory) {
   });
 
   var add = function (profileName) {
-    var prof = {
+    var profile = {
       name: profileName,
       hasUnitTesting: false,
       hasIssueFixing: false,
       hasManualTesting: false,
       unitTestingModifier: 0,
-      issueFixingModifier: 0
+      issueFixingModifier: 0,
+      changed: false
     };
-    prof.columns = columnsFactory.build(prof);
-    profiles.push(prof);
-    availableProfiles.push(prof);
+    profile.lastSubmited = profile;
+    profile.columns = columnsFactory.build(profile);
+    profiles.push(profile);
+    availableProfiles.push(profile);
+  };
+
+  var update = function (profile) {
+    debugger;
   };
 
   var selected = function () {
@@ -104,6 +164,7 @@ module.factory('profilesFactory', function(columnsFactory) {
     get: get,
     add: add,
     select: select,
+    update: update,
     selected: selected,
     available: available
   };

@@ -31,6 +31,8 @@ module.controller('profilesController', function($scope, profilesFactory) {
       return x.name === profile.name;
     });
 
+    if (newValue.data) profile[newValue.colDef.field] = parseInt(newValue.newValue);
+
     var comparison = {
       original: _.clone(originalProfile),
       updated: _.clone(profile)
@@ -38,14 +40,12 @@ module.controller('profilesController', function($scope, profilesFactory) {
 
     delete comparison.original.changed;
     delete comparison.updated.changed;
-
+    
     if (!_.isEqual(comparison.original, comparison.updated)) {
       profile.changed = true;
     } else {
       profile.changed = false;
     }
-
-    if (newValue.data) profile[newValue.colDef.field] = parseInt(newValue.newValue);
   }
 
   $scope.checkDifference = checkDifference;
@@ -64,7 +64,6 @@ module.controller('profilesController', function($scope, profilesFactory) {
 
   function cloneRowData() {
     originalProfileData = _.map($scope.gridOptions.rowData, _.clone);
-    debugger;
   }
   
   $scope.gridOptions = {

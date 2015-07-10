@@ -4,7 +4,7 @@ var module = angular.module('tasksController', []);
 
 module.controller('tasksController', function($scope, userStoriesFactory, tasksFactory, profilesFactory) {
   $scope.userStories = userStoriesFactory.get();
-  $scope.profiles = profilesFactory.available();
+  $scope.profiles = profilesFactory.get();
 
   $scope.task = {};
   $scope.profile = {};
@@ -22,7 +22,7 @@ module.controller('tasksController', function($scope, userStoriesFactory, tasksF
     enableColResize: true,
     ready: function(api) {
       api.sizeColumnsToFit();
-      updateColumns(profilesFactory.selected());
+      updateColumns(profilesFactory.get());
     }
   };
 
@@ -50,8 +50,8 @@ module.controller('tasksController', function($scope, userStoriesFactory, tasksF
   $scope.saveProfile = function(profile) {
     profile = JSON.parse(profile);
     profilesFactory.select(profile);
-    $scope.profiles = profilesFactory.available();
-    updateColumns(profilesFactory.selected());
+    $scope.profiles = profilesFactory.get();
+    updateColumns(profilesFactory.get());
   };
 
   $scope.saveTask = function(task) {

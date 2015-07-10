@@ -59,13 +59,9 @@ module.factory('profilesFactory', function(columnsFactory) {
       changed: false
     }
   ];
-
-  var selectedProfiles = [];
-  var availableProfiles = [];
   
   profiles.forEach(function (x) {
     x.columns = columnsFactory.build(x);
-    availableProfiles.push(x);
   });
 
   var add = function (profileName) {
@@ -80,7 +76,6 @@ module.factory('profilesFactory', function(columnsFactory) {
     };
     profile.columns = columnsFactory.build(profile);
     profiles.push(profile);
-    availableProfiles.push(profile);
   };
 
   var update = function (profile) {
@@ -91,26 +86,6 @@ module.factory('profilesFactory', function(columnsFactory) {
     updatedProfile.columns = columnsFactory.build(updatedProfile);
   };
 
-  var selected = function () {
-    return selectedProfiles;
-  };
-
-  var select = function (profile) {
-    var selectedProfile = profiles.filter(function (x) {
-      return profile.name === x.name;
-    })[0];
-
-    selectedProfiles.push(selectedProfile);
-
-    availableProfiles = availableProfiles.filter(function (x) {
-      return profile.name !== x.name;
-    });
-  };
-
-  var available = function () {
-    return availableProfiles;
-  };
-
   var get = function () {
     return profiles;
   };
@@ -118,9 +93,6 @@ module.factory('profilesFactory', function(columnsFactory) {
   return {
     get: get,
     add: add,
-    select: select,
-    update: update,
-    selected: selected,
-    available: available
+    update: update
   };
 });

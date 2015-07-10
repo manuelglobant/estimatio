@@ -6,10 +6,10 @@ module.controller('userStoriesController', function($scope, userStoriesFactory) 
   var columnDefs = [
     {headerName: 'Owner', field: 'owner'},
     {headerName: '#', field: 'number', editable: true, newValueHandler: checkEmptyRow },
-    {headerName: 'Name', field: 'name', editable: true},
-    {headerName: 'Release', field: 'release', editable: true},
-    {headerName: 'Details', field: 'details', editable: true},
-    {headerName: 'Type (Epic, User Story, Technical Story)', field: 'type', editable: true},
+    {headerName: 'Name', field: 'name', editable: true, newValueHandler: checkEmptyRow},
+    {headerName: 'Release', field: 'release', editable: true, newValueHandler: checkEmptyRow},
+    {headerName: 'Details', field: 'details', editable: true, newValueHandler: checkEmptyRow},
+    {headerName: 'Type (Epic, User Story, Technical Story)', field: 'type', editable: true, newValueHandler: checkEmptyRow},
     {headerName: '', template: '<button ng-click="remove(data)" ng-disabled="data.emptyRow" name="submit">Delete</button>', editable: false},
   ];
 
@@ -22,12 +22,22 @@ module.controller('userStoriesController', function($scope, userStoriesFactory) 
     $scope.gridOptions.api.onNewRows();
   }
 
+  function checkEmptyRows (){
+    var emptyRows = $scope.gridOptions.rowData.filter(function (x){
+      return x.emptyRow;
+    });
+    if (emptyRows.length === 0) {
+      addEmptyRow();
+    }
+  }
+
   function addEmptyRow () {
-    $scope.gridOptions.rowData.push({emptyRow : true, owner: '', number: '', name: '', release: '', details: '', type: ''});
+    userStoriesFactory.add({emptyRow : true, owner: '', number: '', name: '', release: '', details: '', type: ''});
   }
 
   $scope.remove = function (userStory) {
-    $scope.gridOptions.rowData = userStoriesFactory.remove(userStory);    
+    userStoriesFactory.remove(userStory);    
+    $scope.gridOptions.rowData = userStoriesFactory.get();
     $scope.gridOptions.api.onNewRows();
   };
 
@@ -38,7 +48,7 @@ module.controller('userStoriesController', function($scope, userStoriesFactory) 
     enableColResize: true,
     ready: function(api) {
       api.sizeColumnsToFit();
-      addEmptyRow();
+      checkEmptyRows();
       api.onNewRows();
     }
   };

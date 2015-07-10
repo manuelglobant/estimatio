@@ -33,6 +33,10 @@ module.controller('profilesController', function($scope, profilesFactory) {
 
     if (newValue.data) profile[newValue.colDef.field] = parseInt(newValue.newValue);
 
+    compareObjects(originalProfile, profile);
+  }
+
+  function compareObjects (originalProfile, profile) {
     var comparison = {
       original: _.clone(originalProfile),
       updated: _.clone(profile)

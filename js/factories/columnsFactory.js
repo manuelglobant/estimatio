@@ -57,8 +57,8 @@ module.factory('columnsFactory', function() {
         editable: false,
         valueGetter: function (params) { 
           var firstColumnValue = parseInt(params.data[field])  || 0;
-          var secondColumnValue = parseInt(params.data[field] * profile.issueFixingModifier / 100) || 0;
-          var thirdColumnValue = parseInt(params.data[field] * profile.unitTestingModifier / 100) || 0;
+          var secondColumnValue = profile.hasUnitTesting ? (parseInt(params.data[field] * profile.unitTestingModifier / 100)) : 0;
+          var thirdColumnValue = profile.hasIssueFixing ? (parseInt(params.data[field] * profile.issueFixingModifier / 100)) : 0;
           return firstColumnValue + secondColumnValue + thirdColumnValue;
         }
       };

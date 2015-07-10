@@ -9,7 +9,8 @@ module.controller('userStoriesController', function($scope, userStoriesFactory) 
     {headerName: 'Name', field: 'name', editable: true},
     {headerName: 'Release', field: 'release', editable: true},
     {headerName: 'Details', field: 'details', editable: true},
-    {headerName: 'Type (Epic, User Story, Technical Story)', field: 'type', editable: true}
+    {headerName: 'Type (Epic, User Story, Technical Story)', field: 'type', editable: true},
+    {headerName: '', template: '<button ng-click="remove(data)" ng-disabled="data.emptyRow" name="submit">Delete</button>', editable: false},
   ];
 
   function checkEmptyRow (newValue) {
@@ -25,7 +26,13 @@ module.controller('userStoriesController', function($scope, userStoriesFactory) 
     $scope.gridOptions.rowData.push({emptyRow : true, owner: '', number: '', name: '', release: '', details: '', type: ''});
   }
 
+  $scope.remove = function (userStory) {
+    $scope.gridOptions.rowData = userStoriesFactory.remove(userStory);    
+    $scope.gridOptions.api.onNewRows();
+  };
+
   $scope.gridOptions = {
+    angularCompileRows: true,
     columnDefs: columnDefs,
     rowData: userStoriesFactory.get(),
     enableColResize: true,

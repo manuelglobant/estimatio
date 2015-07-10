@@ -18,8 +18,18 @@ module.factory('userStoriesFactory', function() {
     return userStories;
   };
 
+  var remove = function (userStory) {
+    debugger;
+    userStories = userStories.filter(function (x) {
+      return userStory.number !== x.number;
+    });
+    return userStories;
+  };
+ 
+
   return {
     get: get,
-    add: add
+    add: add,
+    remove: remove
   };
 });

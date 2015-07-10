@@ -23,7 +23,7 @@ module.factory('columnsFactory', function() {
         field: field + 'unittesting',
         editable: true,
         valueGetter: function (params) { 
-          return params.data[field] * profile.unitTestingModifier / 100; 
+          return params.data[field] * profile.unitTestingModifier / 100 || ''; 
         }
       };
       result.push(secondColumn);
@@ -35,7 +35,7 @@ module.factory('columnsFactory', function() {
         field: field + 'issuefixing',
         editable: true,
         valueGetter: function (params) { 
-          return params.data[field] * profile.issueFixingModifier / 100; 
+          return params.data[field] * profile.issueFixingModifier / 100 || ''; 
         }
       };
       result.push(thirdColumn);
@@ -59,7 +59,7 @@ module.factory('columnsFactory', function() {
           var firstColumnValue = parseInt(params.data[field])  || 0;
           var secondColumnValue = profile.hasUnitTesting ? (parseInt(params.data[field] * profile.unitTestingModifier / 100)) : 0;
           var thirdColumnValue = profile.hasIssueFixing ? (parseInt(params.data[field] * profile.issueFixingModifier / 100)) : 0;
-          return firstColumnValue + secondColumnValue + thirdColumnValue;
+          return firstColumnValue + secondColumnValue + thirdColumnValue || '';
         }
       };
       result.push(fifthColumn);

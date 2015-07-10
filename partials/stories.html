@@ -1,14 +1,5 @@
 <div ng-controller="userStoriesController">
   <h2>User Stories</h2>
-  <form novalidate>
-    <input placeholder="Owner:" type="text" ng-model="userStory.owner" />
-    <input placeholder="Number:" type="text" ng-model="userStory.number" />
-    <input placeholder="Name:" type="text" ng-model="userStory.name" />
-    <input placeholder="Release:" type="text" ng-model="userStory.release" />
-    <input placeholder="Details:" type="text" ng-model="userStory.details" />
-    <input placeholder="Type:" type="text" ng-model="userStory.type" />
-    <input type="submit" ng-click="save(userStory)" value="Save" />
-  </form>
   <div ag-grid="gridOptions" class="ag-fresh user-stories-grid"></div>
 </div>
 <hr>

@@ -22,13 +22,12 @@ module.controller('userStoriesController', function($scope, userStoriesFactory) 
     $scope.gridOptions.api.onNewRows();
   }
 
-  function checkEmptyRows (){
+  function checkEmptyRows () {
     var emptyRows = $scope.gridOptions.rowData.filter(function (x){
       return x.emptyRow;
     });
-    if (emptyRows.length === 0) {
-      addEmptyRow();
-    }
+
+    if (emptyRows.length === 0) addEmptyRow();
   }
 
   function addEmptyRow () {

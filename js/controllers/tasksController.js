@@ -24,7 +24,7 @@ module.controller('tasksController', function($scope, userStoriesFactory, tasksF
     ready: function(api) {
       api.sizeColumnsToFit();
       updateColumns(profilesFactory.get());
-      addEmptyRow();
+      checkEmptyRows();
       api.onNewRows();
     }
   };
@@ -49,6 +49,14 @@ module.controller('tasksController', function($scope, userStoriesFactory, tasksF
       $scope.gridOptions.api.sizeColumnsToFit();
     });
   }
+
+  function checkEmptyRows () {
+    var emptyRows = $scope.gridOptions.rowData.filter(function (x){
+     return x.emptyRow;
+    });
+    if (emptyRows.length === 0) addEmptyRow();
+  }
+
 
   function addEmptyRow () {
     $scope.gridOptions.rowData.push({emptyRow: true, usNumber: taskSelector, name: '', release: '', assumptions: ''});

@@ -2,3 +2,20 @@
   height: 200px;
   min-height: 200px;
 }
+
+ul li {
+	list-style: none;
+}
+
+.estimationList li {
+  padding-top: 10px;
+}
+
+.estimatio-body{
+   min-width: 800px;
+}
+
+
+.estimationForm{
+   padding-left: 50% 
+}

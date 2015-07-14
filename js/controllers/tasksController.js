@@ -41,7 +41,7 @@ module.controller('tasksController', function ($scope, userStoriesFactory, tasks
     profiles.forEach(function (profile) {      
       profile.columns.forEach(function (column) {
         if (column.newValueHandler === null) column.newValueHandler = updateGrid;
-        if ($scope.columnDefs.every(function(x) { return column.field !== x.field;})) {
+        if ($scope.columnDefs.every(function (x) { return column.field !== x.field; })) {
           $scope.columnDefs.push(column);
         }
       });
@@ -50,10 +50,15 @@ module.controller('tasksController', function ($scope, userStoriesFactory, tasks
   }
 
   function reorderColumns () {
-    var manualTestingCol = $scope.gridOptions.columnDefs.filter(function(x){return x.field === 'manualfixing';})[0];
+    var manualTestingCol = $scope.gridOptions.columnDefs.filter(function (x) { 
+      return x.field === 'manualfixing'; 
+    })[0];
     
     if (manualTestingCol) {
-      $scope.gridOptions.columnDefs = $scope.gridOptions.columnDefs.filter(function(x){return x.field !== 'manualfixing';});
+      $scope.gridOptions.columnDefs = $scope.gridOptions.columnDefs.filter(function (x) {
+        return x.field !== 'manualfixing'; 
+      });
+      
       $scope.gridOptions.columnDefs.push(manualTestingCol);
     }
 

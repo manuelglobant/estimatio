@@ -45,9 +45,20 @@ module.controller('tasksController', function ($scope, userStoriesFactory, tasks
           $scope.columnDefs.push(column);
         }
       });
-      $scope.gridOptions.api.onNewCols();
-      $scope.gridOptions.api.sizeColumnsToFit();
     });
+    reorderColumns();
+  }
+
+  function reorderColumns () {
+    var manualTestingCol = $scope.gridOptions.columnDefs.filter(function(x){return x.field === 'manualfixing';})[0];
+    
+    if (manualTestingCol) {
+      $scope.gridOptions.columnDefs = $scope.gridOptions.columnDefs.filter(function(x){return x.field !== 'manualfixing';});
+      $scope.gridOptions.columnDefs.push(manualTestingCol);
+    }
+
+    $scope.gridOptions.api.onNewCols();
+    $scope.gridOptions.api.sizeColumnsToFit();
   }
 
   function checkEmptyRows () {

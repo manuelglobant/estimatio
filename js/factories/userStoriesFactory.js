@@ -2,7 +2,7 @@
 
 var module = angular.module('userStoriesFactory', []);
 
-module.factory('userStoriesFactory', function() {
+module.factory('userStoriesFactory', function () {
   var __id = 5;
   var userStories = [
     {emptyRow: false,id: 1, owner: 'Estimator 1', number: 'US-01', name: 'User Store 1', release: '1', details: 'As a user, I want to...', type: 'User Story'},

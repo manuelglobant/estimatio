@@ -2,7 +2,7 @@
 
 var module = angular.module('tasksController', []);
 
-module.controller('tasksController', function($scope, userStoriesFactory, tasksFactory, profilesFactory) {
+module.controller('tasksController', function ($scope, userStoriesFactory, tasksFactory, profilesFactory) {
   $scope.userStories = userStoriesFactory.get();
   $scope.profiles = profilesFactory.get();
 
@@ -54,9 +54,9 @@ module.controller('tasksController', function($scope, userStoriesFactory, tasksF
     var emptyRows = $scope.gridOptions.rowData.filter(function (x){
      return x.emptyRow;
     });
+
     if (emptyRows.length === 0) addEmptyRow();
   }
-
 
   function addEmptyRow () {
     $scope.gridOptions.rowData.push({emptyRow: true, usNumber: taskSelector, name: '', release: '', assumptions: ''});
@@ -68,7 +68,7 @@ module.controller('tasksController', function($scope, userStoriesFactory, tasksF
     '</select>';
 
   $scope.saveTask = function(task, data) {
-    tasksFactory.get()[tasksFactory.get().indexOf(data)] = tasksFactory.transform(task);
+    tasksFactory.get()[tasksFactory.get().indexOf(data)] = tasksFactory.add(task);
     $scope.task = {};
     addEmptyRow();
     $scope.gridOptions.api.onNewRows();

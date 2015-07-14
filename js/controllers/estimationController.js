@@ -2,10 +2,10 @@
 
 var module = angular.module('estimationController', []);
 
-module.controller('estimationController', function($scope, estimationFactory) {
+module.controller('estimationController', function ($scope, estimationFactory) {
   $scope.estimation = {};
 
-  $scope.save = function(estimation){
+  $scope.save = function (estimation) {
     estimationFactory.save(estimation);
     $scope.estimation = {};
   };

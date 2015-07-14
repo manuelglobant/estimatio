@@ -2,7 +2,7 @@
 
 var module = angular.module('userStoriesController', []);
 
-module.controller('userStoriesController', function($scope, userStoriesFactory) {
+module.controller('userStoriesController', function ($scope, userStoriesFactory) {
   var columnDefs = [
     {headerName: 'Owner', field: 'owner'},
     {headerName: '#', field: 'number', editable: true, newValueHandler: checkEmptyRow },
@@ -45,7 +45,7 @@ module.controller('userStoriesController', function($scope, userStoriesFactory) 
     columnDefs: columnDefs,
     rowData: userStoriesFactory.get(),
     enableColResize: true,
-    ready: function(api) {
+    ready: function (api) {
       api.sizeColumnsToFit();
       checkEmptyRows();
       api.onNewRows();
@@ -54,7 +54,7 @@ module.controller('userStoriesController', function($scope, userStoriesFactory) 
 
   $scope.userStory = {};
 
-  $scope.save = function(userStory) {
+  $scope.save = function (userStory) {
     userStoriesFactory.add(userStory);
     $scope.gridOptions.api.onNewRows();  
     $scope.userStory = {};

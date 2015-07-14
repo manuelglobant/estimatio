@@ -2,7 +2,7 @@
 
 var module = angular.module('profilesFactory', []);
 
-module.factory('profilesFactory', function(columnsFactory) {
+module.factory('profilesFactory', function (columnsFactory) {
   var profiles = [
     {
       name: 'Frontend',

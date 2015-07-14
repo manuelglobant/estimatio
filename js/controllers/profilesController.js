@@ -2,7 +2,7 @@
 
 var module = angular.module('profilesController', []);
 
-module.controller('profilesController', function($scope, profilesFactory) {
+module.controller('profilesController', function ($scope, profilesFactory) {
   $scope.profile = '';
   var originalProfileData;
 
@@ -16,12 +16,16 @@ module.controller('profilesController', function($scope, profilesFactory) {
     {headerName: '', template: '<button ng-disabled="!data.changed" ng-click="update(data)" name="submit">Update</button>', editable: false},
   ];
 
-  function enabledUnitTestingModifier(data) {
+  function enabledUnitTestingModifier (data) {
     return data.hasUnitTesting;
   }
 
-  function enabledIssueFixingModifier(data) {
+  function enabledIssueFixingModifier (data) {
     return data.hasIssueFixing;
+  }
+
+  function cloneRowData () {
+    originalProfileData = _.map($scope.gridOptions.rowData, _.clone);
   }
 
   function checkDifference (newValue) {
@@ -33,10 +37,10 @@ module.controller('profilesController', function($scope, profilesFactory) {
 
     if (newValue.data) profile[newValue.colDef.field] = parseInt(newValue.newValue);
 
-    compareObjects(originalProfile, profile);
+    compareProfiles(originalProfile, profile);
   }
 
-  function compareObjects (originalProfile, profile) {
+  function compareProfiles (originalProfile, profile) {
     var comparison = {
       original: _.clone(originalProfile),
       updated: _.clone(profile)
@@ -66,9 +70,6 @@ module.controller('profilesController', function($scope, profilesFactory) {
     profile.changed = false;
   };
 
-  function cloneRowData() {
-    originalProfileData = _.map($scope.gridOptions.rowData, _.clone);
-  }
   
   $scope.gridOptions = {
     angularCompileRows: true,

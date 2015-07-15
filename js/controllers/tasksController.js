@@ -46,6 +46,7 @@ module.controller('tasksController', function ($scope, userStoriesFactory, tasks
         }
       });
     });
+    
     reorderColumns();
   }
 

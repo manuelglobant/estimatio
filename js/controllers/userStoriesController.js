@@ -17,6 +17,7 @@ module.controller('userStoriesController', function ($scope, userStoriesFactory)
     if (newValue.data.emptyRow && newValue.newValue !== '') {
       addEmptyRow();
     }
+    
     newValue.data.emptyRow = false;
     newValue.data[newValue.colDef.field] = newValue.newValue;
     $scope.gridOptions.api.onNewRows();

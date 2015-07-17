@@ -82,6 +82,7 @@ module.controller('tasksController', function ($scope, userStoriesFactory, tasks
     var updatedTask = newValue.data;
     var updatedField = newValue.colDef.field;
     updatedTask[updatedField] = newValue.newValue;
+    updatedTask.total[updatedField] = newValue.newValue;
     tasksFactory.update(updatedTask);
     newValue.api.onNewRows();
   }

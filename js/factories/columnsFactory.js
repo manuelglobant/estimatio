@@ -6,7 +6,11 @@ module.factory('columnsFactory', function () {
 
   var build = function (profile) {
     var result = [];
-    var field = profile.name.split(' ').join('').toLowerCase().replace(/[{()}]/g, '');
+    var field = profile.name
+      .split(' ')
+      .join('')
+      .toLowerCase()
+      .replace(/[{()}]/g, '');
 
     var firstColumn = {
       headerName: profile.name,
@@ -61,11 +65,15 @@ module.factory('columnsFactory', function () {
         valueGetter: function (params) {
           var firstColumnValue = parseInt(params.data[field]) || 0;
           
-          var secondColumnValue = profile.hasUnitTesting ? (parseInt(params.data[field] * profile.unitTestingModifier / 100)) : 0;
+          var secondColumnValue = profile.hasUnitTesting ? 
+            (parseInt(params.data[field] * profile.unitTestingModifier / 100)) :
+            0;
           
-          var thirdColumnValue = profile.hasIssueFixing ? (parseInt(params.data[field] * profile.issueFixingModifier / 100)) : 0;
+          var thirdColumnValue = profile.hasIssueFixing ? 
+            (parseInt(params.data[field] * profile.issueFixingModifier / 100)) :
+            0;
 
-          params.data[field + 'total'] = firstColumnValue + secondColumnValue + thirdColumnValue;
+          if (params.data.total) params.data.total[field] = firstColumnValue + secondColumnValue + thirdColumnValue;
           
           return firstColumnValue + secondColumnValue + thirdColumnValue || '';
         }
@@ -73,6 +81,7 @@ module.factory('columnsFactory', function () {
 
       result.push(fifthColumn);
     }
+    
     return result;
   };
 
@@ -82,21 +91,18 @@ module.factory('columnsFactory', function () {
       field: 'total',
       editable: true,
       valueGetter: function (params) {
-        var frontendTotal = params.data.frontendtotal || 0;
-        var backendTotal = params.data.backendtotal || 0;
-        var visualTotal = params.data.visualdesignertotal || 0;
-        var architect = parseInt(params.data.architect) || 0;
-        var buisnessAnalyst = parseInt(params.data.buisnessanalyst) || 0;
-        var projectManager = parseInt(params.data.projectmanager) || 0;
-        var manualFixing = parseInt(params.data.manualfixing) || 0;
+        function sumProps(obj) {
+          var sum = 0;
+          for (var value in obj ) {
+            if (obj.hasOwnProperty(value)) {
+              sum += parseInt(obj[value]) || 0;
+            }
+          }
+          return sum;
+        }
 
-        return frontendTotal + 
-          backendTotal + 
-          visualTotal + 
-          architect + 
-          buisnessAnalyst + 
-          projectManager + 
-          manualFixing;
+        var totals = params.data.total;
+        return sumProps(totals);
       } 
     };
 

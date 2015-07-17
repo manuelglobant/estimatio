@@ -12,6 +12,7 @@ module.factory('tasksFactory', function() {
     task.usNumber = task.userStory.number;
     task.usName = task.userStory.name;
     task.usRelease = task.userStory.release;
+    task.total = {};
     __taskId++;
     return task;
   };

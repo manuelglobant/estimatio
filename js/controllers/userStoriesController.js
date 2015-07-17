@@ -2,38 +2,16 @@
 
 var module = angular.module('userStoriesController', []);
 
-module.controller('userStoriesController', function ($scope, userStoriesFactory) {
+module.controller('userStoriesController', function ($scope, userStoriesFactory, estimationFactory) {
   var columnDefs = [
     {headerName: 'Owner', field: 'owner'},
-    {headerName: '#', field: 'number', editable: true, newValueHandler: checkEmptyRow },
-    {headerName: 'Name', field: 'name', editable: true, newValueHandler: checkEmptyRow},
-    {headerName: 'Release', field: 'release', editable: true, newValueHandler: checkEmptyRow},
-    {headerName: 'Details', field: 'details', editable: true, newValueHandler: checkEmptyRow},
-    {headerName: 'Type (Epic, User Story, Technical Story)', field: 'type', editable: true, newValueHandler: checkEmptyRow},
+    {headerName: '#', field: 'number', editable: true, newValueHandler: updateRow },
+    {headerName: 'Name', field: 'name', editable: true, newValueHandler: updateRow},
+    {headerName: 'Release', field: 'release', editable: true, newValueHandler: updateRow},
+    {headerName: 'Details', field: 'details', editable: true, newValueHandler: updateRow},
+    {headerName: 'Type (Epic, User Story, Technical Story)', field: 'type', editable: true, newValueHandler: updateRow},
     {headerName: '', template: '<button ng-click="remove(data)" ng-disabled="data.emptyRow" name="submit">Delete</button>', editable: false},
   ];
-
-  function checkEmptyRow (newValue) {
-    if (newValue.data.emptyRow && newValue.newValue !== '') {
-      addEmptyRow();
-    }
-    
-    newValue.data.emptyRow = false;
-    newValue.data[newValue.colDef.field] = newValue.newValue;
-    $scope.gridOptions.api.onNewRows();
-  }
-
-  function checkEmptyRows () {
-    var emptyRows = $scope.gridOptions.rowData.filter(function (x){
-      return x.emptyRow;
-    });
-
-    if (emptyRows.length === 0) addEmptyRow();
-  }
-
-  function addEmptyRow () {
-    userStoriesFactory.add({emptyRow : true, owner: '', number: '', name: '', release: '', details: '', type: ''});
-  }
 
   $scope.remove = function (userStory) {
     userStoriesFactory.remove(userStory);    
@@ -60,4 +38,34 @@ module.controller('userStoriesController', function ($scope, userStoriesFactory)
     $scope.gridOptions.api.onNewRows();  
     $scope.userStory = {};
   };
+
+  function updateRow (row) {
+    if (row.data.emptyRow && row.row !== '') {
+      addEmptyRow();
+    }
+
+    row.data.emptyRow = false;
+    row.data[row.colDef.field] = row.row;
+    $scope.gridOptions.api.onNewRows();
+  }
+
+  function checkEmptyRows () {
+    var emptyRows = $scope.gridOptions.rowData.filter(function (x){
+      return x.emptyRow;
+    });
+
+    if (emptyRows.length === 0) addEmptyRow();
+  }
+
+  function addEmptyRow () {
+    userStoriesFactory.add({
+      emptyRow : true, 
+      owner: estimationFactory.get().technicalEstimators, 
+      number: '', 
+      name: '', 
+      release: '',
+      details: '',
+      type: ''
+    });
+  }
 });

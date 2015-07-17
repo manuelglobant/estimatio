@@ -16,6 +16,31 @@ module.controller('profilesController', function ($scope, profilesFactory) {
     {headerName: '', template: '<button ng-disabled="!data.changed" ng-click="update(data)" name="submit">Update</button>', editable: false},
   ];
 
+  $scope.checkDifference = checkDifference;
+
+  $scope.add = function (profile) {
+    profilesFactory.add(profile);
+    $scope.gridOptions.api.onNewRows();
+    $scope.profile = '';
+  };
+
+  $scope.update = function (profile) {
+    profilesFactory.update(profile);
+    originalProfileData[originalProfileData.indexOf(profile)] = profile;
+    profile.changed = false;
+  };
+
+  $scope.gridOptions = {
+    angularCompileRows: true,
+    columnDefs: columnDefs,
+    rowData: profilesFactory.get(),
+    enableColResize: true,
+    ready: function(api) {
+      cloneRowData();
+      api.sizeColumnsToFit();
+    }
+  };
+
   function enabledUnitTestingModifier (data) {
     return data.hasUnitTesting;
   }
@@ -54,31 +79,5 @@ module.controller('profilesController', function ($scope, profilesFactory) {
     } else {
       profile.changed = false;
     }
-  }
-
-  $scope.checkDifference = checkDifference;
-
-  $scope.add = function (profile) {
-    profilesFactory.add(profile);
-    $scope.gridOptions.api.onNewRows();
-    $scope.profile = '';
-  };
-
-  $scope.update = function (profile) {
-    profilesFactory.update(profile);
-    originalProfileData[originalProfileData.indexOf(profile)] = profile;
-    profile.changed = false;
-  };
-
-  
-  $scope.gridOptions = {
-    angularCompileRows: true,
-    columnDefs: columnDefs,
-    rowData: profilesFactory.get(),
-    enableColResize: true,
-    ready: function(api) {
-      cloneRowData();
-      api.sizeColumnsToFit();
-    }
-  };
+  }  
 });

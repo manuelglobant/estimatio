@@ -2,12 +2,11 @@
 
 var module = angular.module('tasksController', []);
 
-module.controller('tasksController', function ($scope, userStoriesFactory, tasksFactory, profilesFactory) {
+module.controller('tasksController', function ($scope, userStoriesFactory, tasksFactory, profilesFactory, columnsFactory) {
   $scope.userStories = userStoriesFactory.get();
   $scope.profiles = profilesFactory.get();
 
   $scope.task = {};
-  $scope.profile = {};
 
   $scope.columnDefs = [
     {headerName: '#', field: 'usNumber'},
@@ -15,6 +14,8 @@ module.controller('tasksController', function ($scope, userStoriesFactory, tasks
     {headerName: 'Release', field: 'usRelease'},
     {headerName: 'Assumptions', field: 'assumptions', editable: true}
   ];
+
+  $scope.columnDefs.push(columnsFactory.total());
 
   $scope.gridOptions = {
     angularCompileRows: true,
@@ -29,18 +30,18 @@ module.controller('tasksController', function ($scope, userStoriesFactory, tasks
     }
   };
 
-  function updateGrid (newValue) {
-    var updatedTask = newValue.data;
-    var updatedField = newValue.colDef.field;
-    updatedTask[updatedField] = newValue.newValue;
-    tasksFactory.update(updatedTask);
-    newValue.api.onNewRows();
-  }
+  $scope.saveTask = function(task, data) {
+    tasksFactory.get()[tasksFactory.get().indexOf(data)] = tasksFactory.add(task);
+    $scope.task = {};
+    addEmptyRow();
+    $scope.gridOptions.api.onNewRows();
+  };
 
   function updateColumns (profiles) {
     profiles.forEach(function (profile) {      
       profile.columns.forEach(function (column) {
-        if (column.newValueHandler === null) column.newValueHandler = updateGrid;
+        if (column.newValueHandler === null) column.newValueHandler = updateRow;
+
         if ($scope.columnDefs.every(function (x) { return column.field !== x.field; })) {
           $scope.columnDefs.push(column);
         }
@@ -54,6 +55,10 @@ module.controller('tasksController', function ($scope, userStoriesFactory, tasks
     var manualTestingCol = $scope.gridOptions.columnDefs.filter(function (x) { 
       return x.field === 'manualfixing'; 
     })[0];
+
+    var totalCol = $scope.gridOptions.columnDefs.filter(function (x) { 
+      return x.field === 'total'; 
+    })[0];
     
     if (manualTestingCol) {
       $scope.gridOptions.columnDefs = $scope.gridOptions.columnDefs.filter(function (x) {
@@ -63,8 +68,22 @@ module.controller('tasksController', function ($scope, userStoriesFactory, tasks
       $scope.gridOptions.columnDefs.push(manualTestingCol);
     }
 
+    $scope.gridOptions.columnDefs = $scope.gridOptions.columnDefs.filter(function (x) {
+      return x.field !== 'total'; 
+    });
+
+    $scope.gridOptions.columnDefs.push(totalCol);
+
     $scope.gridOptions.api.onNewCols();
     $scope.gridOptions.api.sizeColumnsToFit();
+  }
+
+  function updateRow (newValue) {
+    var updatedTask = newValue.data;
+    var updatedField = newValue.colDef.field;
+    updatedTask[updatedField] = newValue.newValue;
+    tasksFactory.update(updatedTask);
+    newValue.api.onNewRows();
   }
 
   function checkEmptyRows () {
@@ -76,18 +95,11 @@ module.controller('tasksController', function ($scope, userStoriesFactory, tasks
   }
 
   function addEmptyRow () {
-    $scope.gridOptions.rowData.push({emptyRow: true, usNumber: taskSelector, name: '', release: '', assumptions: ''});
+    $scope.gridOptions.rowData.push({
+      emptyRow: true, 
+      usNumber: '<task-selector></task-selector>', 
+      name: '', release: '', 
+      assumptions: ''
+    });
   }
-
-  var taskSelector = 
-    '<select ng-model="task.userStory" ng-change="saveTask(task, data)">' +
-      '<option ng-selected="{{userStory.number == task.userStory.number}}" ng-repeat="userStory in userStories" value="{{userStory}}">{{userStory.number}}</option>' +
-    '</select>';
-
-  $scope.saveTask = function(task, data) {
-    tasksFactory.get()[tasksFactory.get().indexOf(data)] = tasksFactory.add(task);
-    $scope.task = {};
-    addEmptyRow();
-    $scope.gridOptions.api.onNewRows();
-  };
 });

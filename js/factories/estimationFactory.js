@@ -6,6 +6,7 @@ module.factory('estimationFactory', function () {
   var estimation = {};
 
   var save = function (newEstimation) {
+    debugger;
     estimation = newEstimation;
   };
 

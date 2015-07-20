@@ -1,6 +1,9 @@
 .tasks-grid, .user-stories-grid, .profiles-grid {
-  height: 200px;
-  min-height: 200px;
+  height: 400px;
+}
+
+ul {
+  padding-left: 0;
 }
 
 ul li {

@@ -64,18 +64,16 @@ module.factory('columnsFactory', function () {
         editable: false,
         valueGetter: function (params) {
           var firstColumnValue = parseInt(params.data[field]) || 0;
-          
-          var secondColumnValue = profile.hasUnitTesting ? 
-            (parseInt(params.data[field] * profile.unitTestingModifier / 100)) :
-            0;
-          
-          var thirdColumnValue = profile.hasIssueFixing ? 
-            (parseInt(params.data[field] * profile.issueFixingModifier / 100)) :
-            0;
+          var secondColumnValue = profile.hasUnitTesting ? (parseInt(params.data[field] * profile.unitTestingModifier / 100)) : 0;
+          var thirdColumnValue = profile.hasIssueFixing ? (parseInt(params.data[field] * profile.issueFixingModifier / 100)) : 0;
 
-          if (params.data.total) params.data.total[field] = firstColumnValue + secondColumnValue + thirdColumnValue;
+          var totalValue = firstColumnValue + secondColumnValue + thirdColumnValue;
+
+          if (params.data.total) {
+            params.data.total[field] = totalValue;
+          }
           
-          return firstColumnValue + secondColumnValue + thirdColumnValue || '';
+          return totalValue || '';
         }
       };
 

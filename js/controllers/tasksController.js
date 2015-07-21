@@ -21,12 +21,15 @@ module.controller('tasksController', function ($scope, userStoriesFactory, tasks
     angularCompileRows: true,
     columnDefs: $scope.columnDefs,
     rowData: tasksFactory.get(),
+    groupHeaders: true,
     enableColResize: true,
     ready: function(api) {
       api.sizeColumnsToFit();
       updateColumns(profilesFactory.get());
       checkEmptyRows();
       api.onNewRows();
+      updateTotal();
+      api.refreshView();
     }
   };
 
@@ -34,57 +37,30 @@ module.controller('tasksController', function ($scope, userStoriesFactory, tasks
     tasksFactory.get()[tasksFactory.get().indexOf(data)] = tasksFactory.add(task);
     $scope.task = {};
     addEmptyRow();
-    $scope.gridOptions.api.onNewRows();
   };
 
-  function updateColumns (profiles) {
-    profiles.forEach(function (profile) {      
-      profile.columns.forEach(function (column) {
-        if (column.newValueHandler === null) column.newValueHandler = updateRow;
-
-        if ($scope.columnDefs.every(function (x) { return column.field !== x.field; })) {
-          $scope.columnDefs.push(column);
-        }
-      });
+  function updateTotal () {
+    tasksFactory.get().forEach(function (x) {
+      if (x.profile) {
+        x.profile.columns[x.profile.columns.length - 1].valueGetter(x.data);
+      }
     });
-    
-    reorderColumns();
   }
-
-  function reorderColumns () {
-    var manualTestingCol = $scope.gridOptions.columnDefs.filter(function (x) { 
-      return x.field === 'manualfixing'; 
-    })[0];
-
-    var totalCol = $scope.gridOptions.columnDefs.filter(function (x) { 
-      return x.field === 'total'; 
-    })[0];
-    
-    if (manualTestingCol) {
-      $scope.gridOptions.columnDefs = $scope.gridOptions.columnDefs.filter(function (x) {
-        return x.field !== 'manualfixing'; 
-      });
-      
-      $scope.gridOptions.columnDefs.push(manualTestingCol);
-    }
-
-    $scope.gridOptions.columnDefs = $scope.gridOptions.columnDefs.filter(function (x) {
-      return x.field !== 'total'; 
-    });
-
-    $scope.gridOptions.columnDefs.push(totalCol);
-
-    $scope.gridOptions.api.onNewCols();
-    $scope.gridOptions.api.sizeColumnsToFit();
-  }
-
+  
   function updateRow (newValue) {
     var updatedTask = newValue.data;
     var updatedField = newValue.colDef.field;
+
     updatedTask[updatedField] = newValue.newValue;
     updatedTask.total[updatedField] = newValue.newValue;
+
+    if (!updatedTask.profile) updatedTask.profile = this.profile;
+    if (!updatedTask.data) updatedTask.data = newValue;
+    
+    updatedTask.profile.columns[updatedTask.profile.columns.length - 1].valueGetter(newValue);
+    
     tasksFactory.update(updatedTask);
-    newValue.api.onNewRows();
+    newValue.api.refreshView();
   }
 
   function checkEmptyRows () {
@@ -102,5 +78,39 @@ module.controller('tasksController', function ($scope, userStoriesFactory, tasks
       name: '', release: '', 
       assumptions: ''
     });
+
+    $scope.gridOptions.api.onNewRows();
   }
+
+  function updateColumns (profiles) {
+    profiles.forEach(function (profile) {      
+      profile.columns.forEach(function (column) {
+        if (column.newValueHandler === null) {
+          column.newValueHandler = updateRow;
+        }
+
+        $scope.columnDefs.push(column);
+      });
+    });
+    
+    reorderColumns();
+  }
+
+  function reorderColumns () {
+    var grid = $scope.gridOptions;
+
+    var totalCol = grid.columnDefs.filter(function (x) { 
+      return x.field === 'total'; 
+    })[0];
+    
+    grid.columnDefs = grid.columnDefs.filter(function (x) {
+      return x.field !== 'total'; 
+    });
+    
+    grid.columnDefs.push(totalCol);
+    
+    grid.api.onNewCols();
+    grid.api.sizeColumnsToFit();
+  }
+
 });

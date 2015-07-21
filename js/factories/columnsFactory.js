@@ -13,8 +13,11 @@ module.factory('columnsFactory', function () {
       .replace(/[{()}]/g, '');
 
     var firstColumn = {
-      headerName: profile.name,
+      headerName: 'Hours',
       field: field,
+      headerGroupShow: 'closed',
+      headerGroup: profile.name,
+      profile: profile,
       editable: true,
       newValueHandler: null
     };
@@ -23,10 +26,12 @@ module.factory('columnsFactory', function () {
 
     if (profile.hasUnitTesting) {
       var secondColumn = {
-        headerName: profile.name + ' Unit Testing',
+        headerName: 'Unit Testing',
         field: field + 'unittesting',
+        headerGroupShow: 'open',
+        headerGroup: profile.name,
         editable: true,
-        valueGetter: function (params) { 
+        valueGetter: function (params) {
           return params.data[field] * profile.unitTestingModifier / 100 || ''; 
         }
       };
@@ -36,8 +41,10 @@ module.factory('columnsFactory', function () {
     
     if (profile.hasIssueFixing) {
       var thirdColumn = {
-        headerName: profile.name + ' Issue Fixing',
+        headerName: 'Issue Fixing',
         field: field + 'issuefixing',
+        headerGroupShow: 'open',
+        headerGroup: profile.name,
         editable: true,
         valueGetter: function (params) { 
           return params.data[field] * profile.issueFixingModifier / 100 || ''; 
@@ -51,29 +58,36 @@ module.factory('columnsFactory', function () {
       var forthColumn = {
         headerName: 'Manual Testing',
         field: 'manualfixing',
+        headerGroupShow: 'open',
+        headerGroup: profile.name,
         editable: true, 
-        newValueHandler: null
+        valueGetter: function (params) { 
+          return params.data[field] * profile.manualTestingModifier / 100 || ''; 
+        }
       };
       result.push(forthColumn);
     }
 
-    if (profile.hasIssueFixing || profile.hasUnitTesting) {
+    if (profile.hasIssueFixing || profile.hasUnitTesting || profile.hasManualTesting) {
       var fifthColumn = {
-        headerName: 'Total ' + profile.name,
+        headerName: 'Total',
         field: field + 'total',
-        editable: false,
+        headerGroupShow: 'open',
+        headerGroup: profile.name,
+        editable: true,
         valueGetter: function (params) {
           var firstColumnValue = parseInt(params.data[field]) || 0;
           var secondColumnValue = profile.hasUnitTesting ? (parseInt(params.data[field] * profile.unitTestingModifier / 100)) : 0;
           var thirdColumnValue = profile.hasIssueFixing ? (parseInt(params.data[field] * profile.issueFixingModifier / 100)) : 0;
+          var forthColumnValue = profile.hasManualTesting ? (parseInt(params.data[field] * profile.manualTestingModifier / 100)) : 0;
 
-          var totalValue = firstColumnValue + secondColumnValue + thirdColumnValue;
+          var totalValue = firstColumnValue + secondColumnValue + thirdColumnValue + forthColumnValue;
 
           if (params.data.total) {
             params.data.total[field] = totalValue;
           }
-          
-          return totalValue || '';
+
+          return totalValue || 0;
         }
       };
 
@@ -87,9 +101,9 @@ module.factory('columnsFactory', function () {
     var column = {
       headerName: 'Total',
       field: 'total',
-      editable: true,
+      editable: false,
       valueGetter: function (params) {
-        function sumProps(obj) {
+        function sumTotals(obj) {
           var sum = 0;
           for (var value in obj ) {
             if (obj.hasOwnProperty(value)) {
@@ -99,8 +113,7 @@ module.factory('columnsFactory', function () {
           return sum;
         }
 
-        var totals = params.data.total;
-        return sumProps(totals);
+        return sumTotals(params.data.total);
       } 
     };
 

@@ -11,6 +11,7 @@ module.factory('profilesFactory', function (columnsFactory) {
       hasManualTesting: true,
       unitTestingModifier: 35,
       issueFixingModifier: 20,
+      manualTestingModifier: 30,
       changed: false
     },
     {
@@ -20,6 +21,7 @@ module.factory('profilesFactory', function (columnsFactory) {
       hasManualTesting: true,
       unitTestingModifier: 35,
       issueFixingModifier: 20,
+      manualTestingModifier: 30,
       changed: false
     },
     {
@@ -29,6 +31,7 @@ module.factory('profilesFactory', function (columnsFactory) {
       hasManualTesting: true,
       unitTestingModifier: 0,
       issueFixingModifier: 20,
+      manualTestingModifier: 30,
       changed: false
     },
     {
@@ -72,6 +75,7 @@ module.factory('profilesFactory', function (columnsFactory) {
       hasManualTesting: false,
       unitTestingModifier: 0,
       issueFixingModifier: 0,
+      manualTestingModifier: 0,
       changed: false
     };
     profile.columns = columnsFactory.build(profile);

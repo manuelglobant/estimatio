@@ -42,7 +42,8 @@ module.controller('tasksController', function ($scope, userStoriesFactory, tasks
   function updateTotal () {
     tasksFactory.get().forEach(function (x) {
       if (x.profile) {
-        x.profile.columns[x.profile.columns.length - 1].valueGetter(x.data);
+        var columns = x.profile.columns;
+        columns[columns.length - 1].valueGetter(x.data);
       }
     });
   }

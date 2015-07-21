@@ -76,7 +76,7 @@ module.controller('profilesController', function ($scope, profilesFactory) {
       updated: _.clone(profile)
     };
 
-    delete comparison.original.changed;
+    if (comparison.original) delete comparison.original.changed;
     delete comparison.updated.changed;
     
     if (!_.isEqual(comparison.original, comparison.updated)) {

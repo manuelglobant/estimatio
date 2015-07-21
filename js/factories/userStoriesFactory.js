@@ -4,6 +4,7 @@ var module = angular.module('userStoriesFactory', []);
 
 module.factory('userStoriesFactory', function (estimationFactory) {
   var __id = 5;
+  
   var userStories = [
     { id: 1, owner: 'Estimator 1', number: 'US-01', name: 'User Store 1', release: '1', details: 'As a user, I want to...', type: 'User Story'},
     { id: 2, owner: 'Estimator 1', number: 'US-02', name: 'User Store 1', release: '1', details: 'As a user, I want to...', type: 'User Story'},

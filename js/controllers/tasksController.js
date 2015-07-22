@@ -41,6 +41,7 @@ module.controller('tasksController', function ($scope, userStoriesFactory, tasks
 
   function updateTotal () {
     tasksFactory.get().forEach(function (x) {
+      debugger;
       if (x.profile) {
         var columns = x.profile.columns;
         columns[columns.length - 1].valueGetter(x.data);
@@ -57,8 +58,7 @@ module.controller('tasksController', function ($scope, userStoriesFactory, tasks
 
     if (!updatedTask.profile) updatedTask.profile = this.profile;
     if (!updatedTask.data) updatedTask.data = newValue;
-    
-    updatedTask.profile.columns[updatedTask.profile.columns.length - 1].valueGetter(newValue);
+    if (updatedTask.profile.columns.length > 1) updatedTask.profile.columns[updatedTask.profile.columns.length - 1].valueGetter(newValue);
     
     tasksFactory.update(updatedTask);
     newValue.api.refreshView();
@@ -113,5 +113,4 @@ module.controller('tasksController', function ($scope, userStoriesFactory, tasks
     grid.api.onNewCols();
     grid.api.sizeColumnsToFit();
   }
-
 });

@@ -77,9 +77,9 @@ module.factory('columnsFactory', function () {
         editable: true,
         valueGetter: function (params) {
           var firstColumnValue = parseInt(params.data[field]) || 0;
-          var secondColumnValue = profile.hasUnitTesting ? (parseInt(params.data[field] * profile.unitTestingModifier / 100)) : 0;
-          var thirdColumnValue = profile.hasIssueFixing ? (parseInt(params.data[field] * profile.issueFixingModifier / 100)) : 0;
-          var forthColumnValue = profile.hasManualTesting ? (parseInt(params.data[field] * profile.manualTestingModifier / 100)) : 0;
+          var secondColumnValue = profile.hasUnitTesting ? (parseInt(firstColumnValue * profile.unitTestingModifier / 100)) : 0;
+          var thirdColumnValue = profile.hasIssueFixing ? (parseInt(firstColumnValue * profile.issueFixingModifier / 100)) : 0;
+          var forthColumnValue = profile.hasManualTesting ? (parseInt(firstColumnValue * profile.manualTestingModifier / 100)) : 0;
 
           var totalValue = firstColumnValue + secondColumnValue + thirdColumnValue + forthColumnValue;
 

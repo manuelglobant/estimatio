@@ -41,10 +41,10 @@ module.controller('tasksController', function ($scope, userStoriesFactory, tasks
 
   function updateTotal () {
     tasksFactory.get().forEach(function (x) {
-      debugger;
-      if (x.profile) {
-        var columns = x.profile.columns;
-        columns[columns.length - 1].valueGetter(x.data);
+      if (x.profiles) {
+        x.profiles.forEach(function (y) {
+          y.columns[y.columns.length - 1].valueGetter(x.data);
+        });
       }
     });
   }
@@ -56,10 +56,20 @@ module.controller('tasksController', function ($scope, userStoriesFactory, tasks
     updatedTask[updatedField] = newValue.newValue;
     updatedTask.total[updatedField] = newValue.newValue;
 
-    if (!updatedTask.profile) updatedTask.profile = this.profile;
+    if (!updatedTask.profiles) {
+      updatedTask.profiles = [];
+    }
+
+    updatedTask.profiles.push(this.profile);
+
     if (!updatedTask.data) updatedTask.data = newValue;
-    if (updatedTask.profile.columns.length > 1) updatedTask.profile.columns[updatedTask.profile.columns.length - 1].valueGetter(newValue);
-    
+
+    updatedTask.profiles.forEach(function(profile) {
+      if (profile.columns.length > 1) {
+        profile.columns[profile.columns.length - 1].valueGetter(newValue);
+      }
+    });
+
     tasksFactory.update(updatedTask);
     newValue.api.refreshView();
   }

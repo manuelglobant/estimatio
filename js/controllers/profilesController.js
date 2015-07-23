@@ -2,7 +2,7 @@
 
 var module = angular.module('profilesController', []);
 
-module.controller('profilesController', function($scope, profilesFactory) {
+module.controller('profilesController', function ($scope, profilesFactory) {
   $scope.profile = '';
   var originalProfileData;
 
@@ -13,44 +13,9 @@ module.controller('profilesController', function($scope, profilesFactory) {
     {headerName: 'Issue Fixing', template: '<input type="checkbox" name="hasIssueFixing" ng-model="data.hasIssueFixing" ng-click="checkDifference(data)"/>', editable: false},
     {headerName: 'Issue Fixing Modifier', field: 'issueFixingModifier', editable: enabledIssueFixingModifier, newValueHandler: checkDifference},
     {headerName: 'Manual Testing', template: '<input type="checkbox" name="hasManualTesting" ng-model="data.hasManualTesting" ng-click="checkDifference(data)"/>', editable: false},
+    {headerName: 'Manual Fixing Modifier', field: 'manualTestingModifier', editable: enabledManualFixingModifier, newValueHandler: checkDifference},
     {headerName: '', template: '<button ng-disabled="!data.changed" ng-click="update(data)" name="submit">Update</button>', editable: false},
   ];
-
-  function enabledUnitTestingModifier(data) {
-    return data.hasUnitTesting;
-  }
-
-  function enabledIssueFixingModifier(data) {
-    return data.hasIssueFixing;
-  }
-
-  function checkDifference (newValue) {
-    var profile = (newValue.data) ? newValue.data : newValue;
-
-    var originalProfile = _.find(originalProfileData, function(x) {
-      return x.name === profile.name;
-    });
-
-    if (newValue.data) profile[newValue.colDef.field] = parseInt(newValue.newValue);
-
-    compareObjects(originalProfile, profile);
-  }
-
-  function compareObjects (originalProfile, profile) {
-    var comparison = {
-      original: _.clone(originalProfile),
-      updated: _.clone(profile)
-    };
-
-    delete comparison.original.changed;
-    delete comparison.updated.changed;
-    
-    if (!_.isEqual(comparison.original, comparison.updated)) {
-      profile.changed = true;
-    } else {
-      profile.changed = false;
-    }
-  }
 
   $scope.checkDifference = checkDifference;
 
@@ -66,10 +31,6 @@ module.controller('profilesController', function($scope, profilesFactory) {
     profile.changed = false;
   };
 
-  function cloneRowData() {
-    originalProfileData = _.map($scope.gridOptions.rowData, _.clone);
-  }
-  
   $scope.gridOptions = {
     angularCompileRows: true,
     columnDefs: columnDefs,
@@ -80,4 +41,48 @@ module.controller('profilesController', function($scope, profilesFactory) {
       api.sizeColumnsToFit();
     }
   };
+
+  function enabledUnitTestingModifier (data) {
+    return data.hasUnitTesting;
+  }
+
+  function enabledIssueFixingModifier (data) {
+    return data.hasIssueFixing;
+  }
+
+  function enabledManualFixingModifier (data) {
+    return data.hasIssueFixing;
+  }
+
+  function cloneRowData () {
+    originalProfileData = _.map($scope.gridOptions.rowData, _.clone);
+  }
+
+  function checkDifference (newValue) {
+    var profile = (newValue.data) ? newValue.data : newValue;
+
+    var originalProfile = _.find(originalProfileData, function(x) {
+      return x.name === profile.name;
+    });
+
+    if (newValue.data) profile[newValue.colDef.field] = parseInt(newValue.newValue);
+
+    compareProfiles(originalProfile, profile);
+  }
+
+  function compareProfiles (originalProfile, profile) {
+    var comparison = {
+      original: _.clone(originalProfile),
+      updated: _.clone(profile)
+    };
+
+    if (comparison.original) delete comparison.original.changed;
+    delete comparison.updated.changed;
+    
+    if (!_.isEqual(comparison.original, comparison.updated)) {
+      profile.changed = true;
+    } else {
+      profile.changed = false;
+    }
+  }  
 });

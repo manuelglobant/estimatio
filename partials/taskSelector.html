@@ -1,0 +1,8 @@
+<select ng-model="$parent.task.userStory" ng-change="$parent.saveTask($parent.task, $parent.data)">
+  <option 
+    ng-selected="{{userStory.number == $parent.task.userStory.number}}" 
+    ng-repeat="userStory in $parent.userStories" 
+    value="{{userStory}}">
+    {{userStory.number}}
+  </option>
+</select>

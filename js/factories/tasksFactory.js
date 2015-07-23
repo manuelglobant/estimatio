@@ -6,24 +6,19 @@ module.factory('tasksFactory', function() {
   var tasks = [];
   var __taskId = 1;
 
-  var transform = function (task) {
+  var add = function (task) {
+    task.id = __taskId;
     task.userStory = JSON.parse(task.userStory);
     task.usNumber = task.userStory.number;
     task.usName = task.userStory.name;
     task.usRelease = task.userStory.release;
-    return task;
-  };
-
-  var add = function (task) {
-    task.id = __taskId;
-    task = transform(task);
-    tasks.push(task);
+    task.total = {};
     __taskId++;
     return task;
   };
 
   var update = function (newValue) {
-    var task = tasks.filter(function(x){return x.id === newValue.id;})[0];
+    var task = tasks.filter(function (x) { return x.id === newValue.id; })[0];
     tasks[tasks.indexOf(task)] = newValue;
   };
 
@@ -34,7 +29,6 @@ module.factory('tasksFactory', function() {
   return {
     get: get,
     add: add,
-    update: update,
-    transform: transform
+    update: update
   };
 });

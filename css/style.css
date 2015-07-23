@@ -1,4 +1,23 @@
 .tasks-grid, .user-stories-grid, .profiles-grid {
-  height: 200px;
-  min-height: 200px;
+  height: 400px;
+}
+
+ul {
+  padding-left: 0;
+}
+
+ul li {
+	list-style: none;
+}
+
+.estimationList li {
+  padding-top: 10px;
+}
+
+.estimatio-body {
+  min-width: 800px;
+}
+
+.estimationForm{
+  padding-left: 39% 
 }

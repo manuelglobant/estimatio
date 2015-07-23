@@ -1,12 +1,27 @@
-<div ng-controller="estimationController">
+<div ng-controller="estimationController" class="estimationForm">
   <h2>Estimation</h2>
   <form novalidate>
-    <input placeholder="Client:" type="text" ng-model="estimation.client" />
-    <input placeholder="Project:" type="text" ng-model="estimation.project" />
-    <input placeholder="Studio:" type="text" ng-model="estimation.studio" />
-    <input placeholder="Presales Responsible:" type="text" ng-model="estimation.presalesResponsible" />
-    <input placeholder="Technical Estimators:" type="text" ng-model="estimation.technicalEstimators" />
-    <input type="submit" ng-click="save(estimation)" value="Save" />
+  	<ul class="estimationList">
+	    <li>
+	    	<input placeholder="Client" type="text" ng-model="estimation.client" />
+	    </li>
+	    <li>
+	    	<input placeholder="Project" type="text" ng-model="estimation.project" />
+	    </li>
+	    <li>
+	    	<input placeholder="Studio" type="text" ng-model="estimation.studio" />
+	    </li>
+	    <li>
+	    	<input placeholder="Presales Responsible" type="text" ng-model="estimation.
+	    	presalesResponsible" />
+	    </li>
+	    <li>
+	    	<input placeholder="Technical Estimators" type="text" ng-model="estimation.technicalEstimators" />
+	    </li>
+	    <li>
+	    	<input type="submit" ng-click="save(estimation)" value="Save" />
+	    </li>
+    </ul>
   </form> 
 </div>
 <hr>

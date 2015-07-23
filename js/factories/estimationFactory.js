@@ -2,7 +2,7 @@
 
 var module = angular.module('estimationFactory', []);
 
-module.factory('estimationFactory', function() {
+module.factory('estimationFactory', function () {
   var estimation = {};
 
   var save = function (newEstimation) {

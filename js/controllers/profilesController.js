@@ -13,7 +13,7 @@ module.controller('profilesController', function ($scope, profilesFactory) {
     {headerName: 'Issue Fixing', template: '<input type="checkbox" name="hasIssueFixing" ng-model="data.hasIssueFixing" ng-click="checkDifference(data)"/>', editable: false},
     {headerName: 'Issue Fixing Modifier', field: 'issueFixingModifier', editable: enabledIssueFixingModifier, newValueHandler: checkDifference},
     {headerName: 'Manual Testing', template: '<input type="checkbox" name="hasManualTesting" ng-model="data.hasManualTesting" ng-click="checkDifference(data)"/>', editable: false},
-    {headerName: 'Manual Fixing Modifier', field: 'manualTestingModifier', editable: enabledManualFixingModifier, newValueHandler: checkDifference},
+    {headerName: 'Manual Fixing Modifier', field: 'manualTestingModifier', editable: enabledManualTestingModifier, newValueHandler: checkDifference},
     {headerName: '', template: '<button ng-disabled="!data.changed" ng-click="update(data)" name="submit">Update</button>', editable: false},
   ];
 
@@ -50,8 +50,8 @@ module.controller('profilesController', function ($scope, profilesFactory) {
     return data.hasIssueFixing;
   }
 
-  function enabledManualFixingModifier (data) {
-    return data.hasIssueFixing;
+  function enabledManualTestingModifier (data) {
+    return data.hasManualTesting;
   }
 
   function cloneRowData () {

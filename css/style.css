@@ -1,5 +1,9 @@
-.tasks-grid, .user-stories-grid, .profiles-grid {
+.tasks-grid, .user-stories-grid {
   height: 400px;
+}
+
+.profiles-grid {
+  height: 200px;
 }
 
 ul {

@@ -103,7 +103,6 @@ module.controller('tasksController', function ($scope, userStoriesFactory, tasks
         if (column.newValueHandler === null) {
           column.newValueHandler = updateRow;
         }
-
         $scope.columnDefs.push(column);
       });
     });

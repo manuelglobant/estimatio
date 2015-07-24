@@ -42,8 +42,12 @@ module.controller('tasksController', function ($scope, userStoriesFactory, tasks
   function updateTotal () {
     tasksFactory.get().forEach(function (x) {
       if (x.profiles) {
-        x.profiles.forEach(function (y) {
-          y.columns[y.columns.length - 1].valueGetter(x.data);
+        x.profiles.forEach(function (profile) {
+          if (profile.columns.length > 1) {
+            profile.columns[profile.columns.length - 1].valueGetter(x.data);
+          } else {
+            x.total[profile.name.toLowerCase()] = x[profile.name.toLowerCase()];
+          }
         });
       }
     });

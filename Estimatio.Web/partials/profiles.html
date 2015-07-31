@@ -1,9 +1,22 @@
-<div ng-controller="profilesController">
-  <h2>Profiles</h2>
-  <form novalidate>
-    <input placeholder="Profile name" ng-model="profile" type="text">
-    <input type="submit" ng-click="add(profile)" value="Add" />
-  </form>
-  <div ag-grid="gridOptions" class="ag-fresh profiles-grid"></div>
+<div ng-controller="profilesController" class="row">
+    <h2>Profiles</h2>
+    <div class="row">
+        <form novalidate class="col s12">
+            <div class="row">
+                <div class="input-field col s9">
+                    <input placeholder="Profile Name" id="client_name" type="text" class="validate" ng-model="profile">
+                    <label for="client_name">Profile Name</label>
+                </div>
+                <div class="col s3">
+                    <a class="btn-floating btn-large waves-effect waves-light red" ng-click="add(profile)"><i class="material-icons">+</i></a>
+                    <!--<input class="waves-effect waves-light btn" type="submit" ng-click="add(profile)" value="Add Profile" />
+                    <label for="project_name">Project</label>-->
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <div ag-grid="gridOptions" class="col s12 ag-fresh profiles-grid"></div>
+    </div>
 </div>
 <hr>

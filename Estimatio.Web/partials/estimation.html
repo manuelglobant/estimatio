@@ -1,27 +1,39 @@
-<div ng-controller="estimationController" class="estimationForm">
+<div ng-controller="estimationController" class="row">
   <h2>Estimation</h2>
-  <form novalidate>
-  	<ul class="estimationList">
-	    <li>
-	    	<input placeholder="Client" type="text" ng-model="estimation.client" />
-	    </li>
-	    <li>
-	    	<input placeholder="Project" type="text" ng-model="estimation.project" />
-	    </li>
-	    <li>
-	    	<input placeholder="Studio" type="text" ng-model="estimation.studio" />
-	    </li>
-	    <li>
-	    	<input placeholder="Presales Responsible" type="text" ng-model="estimation.
-	    	presalesResponsible" />
-	    </li>
-	    <li>
-	    	<input placeholder="Technical Estimators" type="text" ng-model="estimation.technicalEstimators" />
-	    </li>
-	    <li>
-	    	<input type="submit" ng-click="save(estimation)" value="Save" />
-	    </li>
-    </ul>
-  </form> 
+    <form class="col s12" novalidate>
+        <div class="row">
+            <div class="input-field col s6">
+                <input placeholder="" id="client_name" type="text" class="validate" ng-model="estimation.client">
+                <label for="client_name">Client</label>
+            </div>
+            <div class="input-field col s6">
+                <input placeholder="" id="project_name" type="text" class="validate" ng-model="estimation.project">
+                <label for="project_name">Project</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input placeholder="" id="studio_name" type="text" class="validate" ng-model="estimation.studio">
+                <label for="studio_name">Studio</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input placeholder="" id="presales_name" type="text" class="validate" ng-model="estimation.presalesResponsible">
+                <label for="presales_name">Presales Responsible</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input placeholder="" id="presales_name" type="text" class="validate" ng-model="estimation.technicalEstimators">
+                <label for="technical_name">Technical Estimators</label>
+            </div>
+        </div>
+        <div class="row">
+            <button class="btn waves-effect waves-light" type="submit" name="action" ng-click="save(estimation)">
+                Submit
+                <i class="material-icons"></i>
+            </button>
+        </div>
+    </form> 
 </div>
-<hr>

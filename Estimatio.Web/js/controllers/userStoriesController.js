@@ -40,12 +40,12 @@ module.controller('userStoriesController', function ($scope, userStoriesFactory,
   };
 
   function updateRow (row) {
-    if (row.data.emptyRow && row.row !== '') {
+    if (row.data.emptyRow && row.newValue !== '') {
       addEmptyRow();
     }
 
     row.data.emptyRow = false;
-    row.data[row.colDef.field] = row.row;
+    if (row.newValue) row.data[row.colDef.field] = row.newValue;
     $scope.gridOptions.api.onNewRows();
   }
 

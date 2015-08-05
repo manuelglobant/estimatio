@@ -1,15 +1,13 @@
-.tasks-grid, .user-stories-grid {
+.tasks-grid, .user-stories-grid, .profiles-grid {
   height: 400px;
 }
 
-.profiles-grid {
-  height: 200px;
+select {
+  display: block;
 }
 
-ul {
-  padding-left: 0;
-}
-
-ul li {
-	list-style: none;
+[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+  position: relative;
+  left: 0px;
+  visibility: visible;
 }
